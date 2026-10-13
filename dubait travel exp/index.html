@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEYOND EXPERIENCE | Experience to Aayega Hi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tealBg: '#0b3844',
+                        cardDark: '#092d37',
+                        goldAccent: '#D4AF37'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+   /* --- WHY CHOOSE US CREATIVE STYLES --- */
+.why-choose-card {
+    background: linear-gradient(135deg, rgba(9, 45, 55, 0.9) 0%, rgba(7, 34, 41, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 2px solid rgba(212, 175, 55, 0.4); /* Permanent luxury top accent */
+    backdrop-filter: blur(16px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+/* Subtle corner glow on hover */
+.why-choose-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%H;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.why-choose-card:hover::before {
+    transform: translateX(100%);
+}
+
+.why-choose-card:hover {
+    border-color: rgba(212, 175, 55, 0.8);
+    border-top-color: #D4AF37;
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.2);
+}
+
+@keyframes floatSlow {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+}
+
+.why-choose-card:hover .card-number {
+    color: #D4AF37;
+    transform: scale(1.1);
+}
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b3844;
+            color: #ffffff;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* --- BORDERLESS TRANSPARENT GLASS NAVBAR --- */
+        .glass-nav {
+            background: rgba(11, 56, 68, 0.15);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- PREMIUM CUSTOM SCROLLBAR FOR INFO PANEL --- */
+        .info-panel::-webkit-scrollbar {
+            width: 5px;
+        }
+        .info-panel::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .info-panel::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+        .info-panel::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 175, 55, 0.8);
+        }
+
+       /* --- CLEAN CINEMATIC BACKGROUND LAYERS --- */
+.bg-layer {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out; /* Faster cross-fade */
+    z-index: 1;
+}
+.bg-layer.active {
+    opacity: 1;
+}
+
+/* Unified gradient overlay: kills the center line by cleanly blending left text area into the right image */
+.bg-gradient-mask {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #0b3844 25%, rgba(11, 56, 68, 0.85) 50%, rgba(11, 56, 68, 0.25) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* --- CREATIVE GLOW BUTTON ANIMATION --- */
+        @keyframes goldGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); }
+        }
+        .animated-gold-btn {
+            animation: goldGlow 3s infinite ease-in-out;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .animated-gold-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.8);
+        }
+
+        /* --- FLUID FULL-SCREEN EXPANSION --- */
+        .dest-card-box {
+            position: absolute;
+            right: 4rem;
+            bottom: 5rem;
+            width: 380px;
+            height: 360px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.25);
+            z-index: 30;
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+        }
+
+        .dest-card-box.expanded {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100dvh !important;
+            border-radius: 0px !important;
+            z-index: 40 !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .info-panel {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            background: rgba(12, 56, 66, 0.9);
+            backdrop-filter: blur(16px);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid rgba(255,255,255,0.15);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 20;
+        }
+        .dest-card-box.expanded .info-panel {
+            width: 42% !important;
+            padding: 7rem 4rem 4rem 4rem !important;
+            background: rgba(11, 56, 68, 0.95);
+            justify-content: flex-start;
+            overflow-y: auto;
+        }
+
+        .img-panel {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .dest-card-box.expanded .img-panel {
+            left: 42% !important;
+            width: 58% !important;
+        }
+
+       /* --- PROPERLY SIZED & ANCHORED RIGHT-SIDE CAROUSEL CONTAINER --- */
+        .destinations-deck {
+            position: absolute;
+            right: 4rem;
+            bottom: 5rem;
+            width: 580px;
+            height: 320px;
+            display: flex;
+            align-items: center;
+            z-index: 30;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .dest-card-track {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+            pointer-events: auto;
+        }
+
+        .dest-card-item {
+            width: 135px;
+            height: 210px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            flex-shrink: 0;
+            background: #092d37;
+            opacity: 0.75;
+        }
+
+        .dest-card-item.featured-card {
+            border-color: #D4AF37;
+            box-shadow: 0 20px 45px rgba(212, 175, 55, 0.4);
+            transform: translateY(-10px) scale(1.05);
+            width: 160px;
+            height: 250px;
+            opacity: 1;
+            z-index: 10;
+        }
+
+        .dest-card-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .dest-card-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .dest-card-item .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(9,45,55,0.95) 0%, rgba(9,45,55,0.3) 60%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0.75rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ========================================== -->
+    <!-- CINEMATIC PRELOADER -->
+    <!-- ========================================== -->
+    <div id="preloader" style="position: fixed; inset: 0; background: #030508; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s;">
+        <video autoplay muted loop playsinline style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.65;">
+            <source src="preloader dubai.m4v" type="video/mp4">
+        </video>
+
+        <div style="position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; text-align: center;">
+            <h1 class="font-serif text-7xl md:text-9xl font-light tracking-[0.25em] text-[#F9F8F6] uppercase animate-fade-in">
+                DUBAI
+            </h1>
+            <p class="mt-6 text-xs md:text-sm uppercase tracking-[0.4em] text-[#E5E2DC] font-serif opacity-80 animate-fade-in">
+                Beyond Experience &bull; Experience to Aayega Hi
+            </p>
+        </div>
+    </div>
+    <style>
+        #preloader.fade-out { opacity: 0; visibility: hidden; }
+    </style>
+
+    <!-- ========================================== -->
+    <!-- BORDERLESS TRANSPARENT GLASS NAVBAR -->
+    <!-- ========================================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 w-full px-8 md:px-16 py-3 grid grid-cols-3 items-center glass-nav">
+    <!-- Left: Logo -->
+    <div class="flex items-center justify-start">
+        <a href="index.html">
+            <img src="Beyond Experience logo(white).png" alt="Beyond Experience Logo" class="h-14 md:h-16 w-auto object-contain filter brightness-200" />
+        </a>
+    </div>
+
+    <!-- Center: Navigation Links -->
+    <nav class="hidden md:flex items-center justify-center space-x-8 lg:space-x-10 text-xs font-medium tracking-wide text-white/90 whitespace-nowrap">
+        <a href="index.html" class="hover:text-amber-200 transition cursor-pointer">Home</a>
+        <a href="about.html" class="hover:text-amber-200 transition cursor-pointer">About</a>
+        <a href="experiences.html" class="hover:text-amber-200 transition cursor-pointer">Experiences</a>
+        <a href="destinations.html" class="hover:text-amber-200 transition cursor-pointer">Destinations</a>
+        <a href="contactus.html" class="hover:text-amber-300 font-semibold transition cursor-pointer">Contact Us</a>
+    </nav>
+
+    <!-- Right: Empty Spacer to balance the grid -->
+    <div></div>
+</header>
+
+    <!-- ========================================== -->
+    <!-- SECTION 1: HERO SCREEN -->
+    <!-- ========================================== -->
+<section id="home" class="relative w-full min-h-screen flex flex-col justify-between bg-[#0b3844] pt-24 pb-20">        <!-- Background Layers spanning the full hero width -->
+       <section id="home" class="relative w-full min-h-screen flex flex-col justify-between bg-[#0b3844] pt-24 pb-20">
+    <div id="bg-layer-1" class="bg-layer active" style="background-image: url('Dubai Marina.png');"></div>
+    <div id="bg-layer-2" class="bg-layer" style="background-image: url('Dubai Marina.png');"></div>
+    <div class="bg-gradient-mask"></div>
+    <!-- Rest of your hero content... -->
+
+        <div class="relative z-20 w-full max-w-7xl mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-auto py-12">
+            <div id="hero-text-content" class="lg:col-span-7 flex flex-col justify-center space-y-6 animate-fade-in">
+                <div class="space-y-0">
+                    <h1 class="text-6xl sm:text-7xl font-bold tracking-tight text-white leading-[1.05]">
+                        Explore <br><span class="font-light text-white/90">Our Destinations</span>
+                    </h1>
+                </div>
+                <p class="text-white/80 text-sm max-w-md font-light leading-relaxed">
+                    Experience to aayega hi — discover extraordinary getaways, private luxury excursions, and bespoke itineraries crafted without compromise.
+                </p>
+                <div class="pt-2">
+                    <button class="px-7 py-3 rounded-none border border-white/40 text-white hover:bg-white hover:text-black font-medium text-xs tracking-wide transition-all duration-300 cursor-pointer">
+                        Book Now <i class="fa-solid fa-chevron-right ml-1 text-[9px]"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right-Side Confined Carousel Track Deck -->
+        <div id="destinations-deck" class="destinations-deck">
+            <div id="dest-card-track" class="dest-card-track">
+                <!-- Dynamically populated carousel cards -->
+            </div>
+        </div>
+
+        <div class="relative z-30 w-full px-8 md:px-16 py-6 flex items-center justify-between">
+            <div class="flex items-center space-x-6 text-white/80 text-xs">
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <div class="flex items-center space-x-2">
+                    <span class="dot-indicator w-6 h-1.5 bg-white transition-all duration-300" data-index="0"></span>
+                    <span class="dot-indicator w-1.5 h-1.5 bg-white/40 transition-all duration-300" data-index="1"></span>
+                    <span class="dot-indicator w-1.5 h-1.5 bg-white/40 transition-all duration-300" data-index="2"></span>
+                    <span class="dot-indicator w-1.5 h-1.5 bg-white/40 transition-all duration-300" data-index="3"></span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button id="prev-btn" class="w-10 h-10 bg-black/40 hover:bg-black/70 text-white flex items-center justify-center transition cursor-pointer rounded-none">
+                        <i class="fa-solid fa-arrow-left text-xs"></i>
+                    </button>
+                    <button id="next-btn" class="w-10 h-10 bg-white text-black hover:bg-gray-200 flex items-center justify-center transition cursor-pointer rounded-none">
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- BOOKING & DESTINATION QUICK-BAR WIDGET -->
+    <!-- ========================================== -->
+    <div class="relative z-50 max-w-6xl mx-auto px-6 w-full translate-y-1/2">
+        <div class="bg-[#092d37]/95 backdrop-blur-xl border border-[#D4AF37]/30 p-6 md:p-8 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.8)] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-center">
+            
+            <!-- Destinations Field -->
+            <div class="flex flex-col space-y-1.5">
+                <label class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-semibold">Destinations</label>
+                <div class="flex items-center space-x-2 bg-black/40 border border-white/20 rounded-xl px-4 py-3 text-white text-xs">
+                    <i class="fa-solid fa-location-dot text-[#D4AF37] text-xs"></i>
+                    <input type="text" id="quick-destination" placeholder="Dubai Marina, Palm..." class="bg-transparent focus:outline-none w-full text-white placeholder-white/40 text-xs">
+                </div>
+            </div>
+
+            <!-- Check-in Date -->
+            <div class="flex flex-col space-y-1.5">
+                <label class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-semibold">Check-in date</label>
+                <div class="flex items-center space-x-2 bg-black/40 border border-white/20 rounded-xl px-4 py-3 text-white text-xs">
+                    <i class="fa-regular fa-calendar text-[#D4AF37] text-xs"></i>
+                    <input type="date" id="quick-checkin" class="bg-transparent focus:outline-none w-full text-white text-xs cursor-pointer [color-scheme:dark]">
+                </div>
+            </div>
+
+            <!-- Check-out Date -->
+            <div class="flex flex-col space-y-1.5">
+                <label class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-semibold">Check-out date</label>
+                <div class="flex items-center space-x-2 bg-black/40 border border-white/20 rounded-xl px-4 py-3 text-white text-xs">
+                    <i class="fa-regular fa-calendar-check text-[#D4AF37] text-xs"></i>
+                    <input type="date" id="quick-checkout" class="bg-transparent focus:outline-none w-full text-white text-xs cursor-pointer [color-scheme:dark]">
+                </div>
+            </div>
+
+            <!-- Number of Guests -->
+            <div class="flex flex-col space-y-1.5">
+                <label class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-semibold">Number of Guests</label>
+                <div class="flex items-center space-x-2 bg-black/40 border border-white/20 rounded-xl px-4 py-3 text-white text-xs">
+                    <i class="fa-solid fa-users text-[#D4AF37] text-xs"></i>
+                    <input type="number" id="quick-guests" min="1" value="2" class="bg-transparent focus:outline-none w-full text-white text-xs">
+                </div>
+            </div>
+
+            <!-- Book Now Button -->
+            <div class="flex flex-col justify-end pt-5 sm:pt-0">
+                <button type="button" id="quick-book-btn" class="w-full py-3.5 bg-[#D4AF37] hover:bg-[#e6c152] text-black font-semibold text-xs tracking-[0.2em] uppercase rounded-xl transition-all duration-300 shadow-[0_10px_25px_rgba(212,175,55,0.4)] hover:shadow-[0_15px_30px_rgba(212,175,55,0.6)] cursor-pointer flex items-center justify-center space-x-2">
+                    <span>BOOK NOW</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ========================================== -->
+<!-- DEDICATED QUICK-BAR BOOKING MODAL FORM -->
+<!-- ========================================== -->
+<div id="quick-booking-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 px-4">
+    <div class="relative w-full max-w-xl bg-[#092d37] border border-white/20 p-8 md:p-12 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] transform scale-95 transition-transform duration-500 text-left" id="quick-modal-content">
+        <button type="button" id="close-quick-modal" class="absolute top-6 right-6 text-white/70 hover:text-white text-xl cursor-pointer">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <span class="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37] font-semibold">Private Concierge Reservation</span>
+        <h3 class="text-2xl md:text-3xl font-serif font-light text-white tracking-wide mt-1 mb-2">
+            Confirm Your Details
+        </h3>
+        <p class="text-xs text-white/70 font-light mb-6 leading-relaxed">
+            Review your selected itinerary details and complete your contact information to finalize your reservation request.
+        </p>
+        
+        <form class="space-y-4" onsubmit="event.preventDefault(); alert('Your booking request has been successfully transmitted to our luxury concierge.'); closeQuickModal();">
+            
+            <!-- Summary Review Box -->
+            <div class="bg-black/40 border border-white/15 rounded-2xl p-4 grid grid-cols-2 gap-3 text-xs">
+                <div>
+                    <span class="text-[9px] uppercase tracking-wider text-[#D4AF37] block">Destination</span>
+                    <span id="summary-dest" class="text-white font-medium">-</span>
+                </div>
+                <div>
+                    <span class="text-[9px] uppercase tracking-wider text-[#D4AF37] block">Guests</span>
+                    <span id="summary-guests" class="text-white font-medium">-</span>
+                </div>
+                <div>
+                    <span class="text-[9px] uppercase tracking-wider text-[#D4AF37] block">Check-in</span>
+                    <span id="summary-checkin" class="text-white font-medium">-</span>
+                </div>
+                <div>
+                    <span class="text-[9px] uppercase tracking-wider text-[#D4AF37] block">Check-out</span>
+                    <span id="summary-checkout" class="text-white font-medium">-</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                <div>
+                    <label class="block text-[10px] uppercase tracking-[0.2em] text-white/70 mb-2 font-medium">Full Name</label>
+                    <input type="text" required placeholder="Enter your full name" class="w-full px-4 py-3.5 bg-black/40 border border-white/20 rounded-xl text-white text-xs focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition">
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase tracking-[0.2em] text-white/70 mb-2 font-medium">Phone Number</label>
+                    <input type="tel" required placeholder="+971 XX XXX XXXX" class="w-full px-4 py-3.5 bg-black/40 border border-white/20 rounded-xl text-white text-xs focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-[10px] uppercase tracking-[0.2em] text-white/70 mb-2 font-medium">Email Address</label>
+                <input type="email" required placeholder="name@domain.com" class="w-full px-4 py-3.5 bg-black/40 border border-white/20 rounded-xl text-white text-xs focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition">
+            </div>
+
+            <button type="submit" class="w-full py-4 mt-2 rounded-xl bg-[#D4AF37] hover:bg-[#e6c152] text-black font-semibold text-xs tracking-[0.25em] uppercase transition-all duration-300 cursor-pointer shadow-xl">
+                Submit Reservation Request
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript Logic for Date Restriction & Modal Interaction -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Restrict date pickers to present and future dates only (Current date: 2026-10-13)
+        const todayStr = "2026-10-13";
+        const checkinInput = document.getElementById('quick-checkin');
+        const checkoutInput = document.getElementById('quick-checkout');
+
+        if (checkinInput) checkinInput.min = todayStr;
+        if (checkoutInput) checkoutInput.min = todayStr;
+
+        // Auto-update checkout minimum when check-in changes
+        if (checkinInput && checkoutInput) {
+            checkinInput.addEventListener('change', () => {
+                checkoutInput.min = checkinInput.value || todayStr;
+                if (checkoutInput.value && checkoutInput.value < checkinInput.value) {
+                    checkoutInput.value = checkinInput.value;
+                }
+            });
+        }
+
+        const quickBookBtn = document.getElementById('quick-book-btn');
+        const quickModal = document.getElementById('quick-booking-modal');
+        const quickModalContent = document.getElementById('quick-modal-content');
+        const closeQuickModalBtn = document.getElementById('close-quick-modal');
+
+        if (quickBookBtn) {
+            quickBookBtn.addEventListener('click', () => {
+                const dest = document.getElementById('quick-destination').value || 'Dubai Marina';
+                const checkin = checkinInput.value || 'Not selected';
+                const checkout = checkoutInput.value || 'Not selected';
+                const guests = document.getElementById('quick-guests').value || '2';
+
+                // Populate summary into modal
+                document.getElementById('summary-dest').textContent = dest;
+                document.getElementById('summary-checkin').textContent = checkin;
+                document.getElementById('summary-checkout').textContent = checkout;
+                document.getElementById('summary-guests').textContent = guests + ' Guest(s)';
+
+                // Open Modal
+                quickModal.classList.remove('opacity-0', 'pointer-events-none');
+                quickModal.classList.add('opacity-100', 'pointer-events-auto');
+                quickModalContent.classList.remove('scale-95');
+                quickModalContent.classList.add('scale-100');
+            });
+        }
+
+        window.closeQuickModal = function() {
+            quickModal.classList.remove('opacity-100', 'pointer-events-auto');
+            quickModal.classList.add('opacity-0', 'pointer-events-none');
+            quickModalContent.classList.remove('scale-100');
+            quickModalContent.classList.add('scale-95');
+        };
+
+        if (closeQuickModalBtn) {
+            closeQuickModalBtn.addEventListener('click', closeQuickModal);
+        }
+
+        if (quickModal) {
+            quickModal.addEventListener('click', (e) => {
+                if (e.target === quickModal) {
+                    closeQuickModal();
+                }
+            });
+        }
+    });
+</script>
+
+   <!-- ========================================== -->
+    <!-- NEW SECTION: WHAT BRINGS YOU TO DUBAI? (ALWAYS VISIBLE TEXT) -->
+    <!-- ========================================== -->
+<section class="relative w-full pt-40 pb-24 px-6 md:px-12 bg-[#072a32] overflow-hidden">        <div class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#D4AF37]/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal-on-scroll">
+                <span class="text-xs uppercase tracking-[0.3em] text-[#D4AF37] font-semibold mb-3 block">Tailored Itineraries</span>
+                <h2 class="text-4xl md:text-5xl font-serif font-light text-white tracking-wide">
+                    What brings you to Dubai?
+                </h2>
+                <div class="w-16 h-0.5 bg-[#D4AF37] mx-auto mt-4"></div>
+                <p class="text-gray-300 text-xs md:text-sm font-light mt-4 leading-relaxed">
+                    Select your purpose of visit and let our private concierge curate a seamless, elite experience without compromise.
+                </p>
+            </div>
+
+            <!-- Single Line Row Container (Responsive: Stacks on mobile, fits 5 in one row on large screens) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-5 w-full">
+                
+                <!-- Card 1: Romance -->
+                <div class="reveal-on-scroll group relative h-[320px] rounded-2xl overflow-hidden cursor-pointer border border-white/15 bg-[#092d37] shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37] hover:shadow-[0_25px_50px_rgba(212,175,55,0.3)]" style="transition-delay: 100ms;">
+                    <img src="Romance.jpeg" alt="Romance in Dubai" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-80">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#092d37] via-[#092d37]/60 to-transparent"></div>
+                    <div class="absolute inset-0 p-5 flex flex-col justify-between z-10">
+                        <div>
+                            <span class="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-[#D4AF37] mb-3 border border-white/20">
+                                <i class="fa-solid fa-heart text-[10px]"></i>
+                            </span>
+                        </div>
+                        <div>
+                            <span class="text-[8px] uppercase tracking-[0.2em] text-[#D4AF37] font-bold block mb-1">Intimate Escapes</span>
+                            <h3 class="text-lg font-serif text-white mb-1.5">Romance</h3>
+                            <p class="text-[10px] text-gray-200 font-light leading-relaxed">
+                                Private desert dinners & yacht sunset cruises.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Family -->
+                <div class="reveal-on-scroll group relative h-[320px] rounded-2xl overflow-hidden cursor-pointer border border-white/15 bg-[#092d37] shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37] hover:shadow-[0_25px_50px_rgba(212,175,55,0.3)]" style="transition-delay: 200ms;">
+                    <img src="Family.jpeg" alt="Family in Dubai" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-80">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#092d37] via-[#092d37]/60 to-transparent"></div>
+                    <div class="absolute inset-0 p-5 flex flex-col justify-between z-10">
+                        <div>
+                            <span class="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-[#D4AF37] mb-3 border border-white/20">
+                                <i class="fa-solid fa-users text-[10px]"></i>
+                            </span>
+                        </div>
+                        <div>
+                            <span class="text-[8px] uppercase tracking-[0.2em] text-[#D4AF37] font-bold block mb-1">Multi-Generational</span>
+                            <h3 class="text-lg font-serif text-white mb-1.5">Family</h3>
+                            <p class="text-[10px] text-gray-200 font-light leading-relaxed">
+                                Immersive theme parks & private family resorts.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Business -->
+                <div class="reveal-on-scroll group relative h-[320px] rounded-2xl overflow-hidden cursor-pointer border border-white/15 bg-[#092d37] shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37] hover:shadow-[0_25px_50px_rgba(212,175,55,0.3)]" style="transition-delay: 300ms;">
+                    <img src="Business.jpeg" alt="Business in Dubai" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-80">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#092d37] via-[#092d37]/60 to-transparent"></div>
+                    <div class="absolute inset-0 p-5 flex flex-col justify-between z-10">
+                        <div>
+                            <span class="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-[#D4AF37] mb-3 border border-white/20">
+                                <i class="fa-solid fa-briefcase text-[10px]"></i>
+                            </span>
+                        </div>
+                        <div>
+                            <span class="text-[8px] uppercase tracking-[0.2em] text-[#D4AF37] font-bold block mb-1">Executive Travel</span>
+                            <h3 class="text-lg font-serif text-white mb-1.5">Business</h3>
+                            <p class="text-[10px] text-gray-200 font-light leading-relaxed">
+                                Private jet charters & VIP corporate retreats.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Celebration -->
+                <div class="reveal-on-scroll group relative h-[320px] rounded-2xl overflow-hidden cursor-pointer border border-white/15 bg-[#092d37] shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37] hover:shadow-[0_25px_50px_rgba(212,175,55,0.3)]" style="transition-delay: 400ms;">
+                    <img src="Celebration.jpeg" alt="Celebration in Dubai" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-80">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#092d37] via-[#092d37]/60 to-transparent"></div>
+                    <div class="absolute inset-0 p-5 flex flex-col justify-between z-10">
+                        <div>
+                            <span class="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-[#D4AF37] mb-3 border border-white/20">
+                                <i class="fa-solid fa-glass-cheers text-[10px]"></i>
+                            </span>
+                        </div>
+                        <div>
+                            <span class="text-[8px] uppercase tracking-[0.2em] text-[#D4AF37] font-bold block mb-1">Milestone Events</span>
+                            <h3 class="text-lg font-serif text-white mb-1.5">Celebration</h3>
+                            <p class="text-[10px] text-gray-200 font-light leading-relaxed">
+                                Grand anniversaries & exclusive yacht parties.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Luxury Escape -->
+                <div class="reveal-on-scroll group relative h-[320px] rounded-2xl overflow-hidden cursor-pointer border border-white/15 bg-[#092d37] shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37] hover:shadow-[0_25px_50px_rgba(212,175,55,0.3)] sm:col-span-2 lg:col-span-1" style="transition-delay: 500ms;">
+                    <img src="Luxuryesc.jpeg" alt="Luxury Escape in Dubai" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-80">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#092d37] via-[#092d37]/60 to-transparent"></div>
+                    <div class="absolute inset-0 p-5 flex flex-col justify-between z-10">
+                        <div>
+                            <span class="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-[#D4AF37] mb-3 border border-white/20">
+                                <i class="fa-solid fa-crown text-[10px]"></i>
+                            </span>
+                        </div>
+                        <div>
+                            <span class="text-[8px] uppercase tracking-[0.2em] text-[#D4AF37] font-bold block mb-1">Ultimate Prestige</span>
+                            <h3 class="text-lg font-serif text-white mb-1.5">Luxury Escape</h3>
+                            <p class="text-[10px] text-gray-200 font-light leading-relaxed">
+                                Penthouse suites & helicopter city tours.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Required CSS Styles for the reveal animation (Add inside your <style> tag) -->
+    <style>
+
+       /* --- CARD JUMP & EXPAND MERGING ANIMATION --- */
+.dest-card-item.merging {
+    position: fixed !important;
+    top: 50% !important;
+    left: 70% !important;
+    width: 600px !important;
+    height: 450px !important;
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+    z-index: 100 !important;
+    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 30px 90px rgba(0,0,0,0.8);
+    border-radius: 20px;
+}
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+
+    <!-- Required JS Observer Script (Add inside your bottom <script> tag) -->
+    <script>
+        const scrollRevealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            scrollRevealObserver.observe(el);
+        });
+    </script>
+
+   <!-- ========================================== -->
+<!-- SECTION 2: WHAT WOULD YOU LIKE TO EXPLORE? -->
+<!-- ========================================== -->
+<section id="about" class="relative w-full py-24 px-8 md:px-16 bg-gradient-to-b from-[#0b3844] via-[#072a32] to-[#0b3844] overflow-hidden">
+    <!-- Background Ambient Glow -->
+    <div class="absolute top-1/2 left-0 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 right-10 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-16 sec2-reveal">
+            <span class="text-xs uppercase tracking-[0.3em] text-[#D4AF37] font-semibold mb-3 block">Curated Mastery</span>
+            <h2 class="text-4xl md:text-5xl font-serif font-light text-white tracking-wide">
+                What would you like to explore?
+            </h2>
+            <div class="w-16 h-0.5 bg-[#D4AF37] mx-auto mt-4"></div>
+            <p class="text-gray-300 text-xs md:text-sm font-light mt-4 leading-relaxed">
+                Explore our pinnacle offerings designed to elevate every moment of your journey through uncompromising luxury.
+            </p>
+        </div>
+
+        <!-- Perfectly Balanced Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+            
+            <!-- Card 1: Yacht -->
+            <div class="sec2-reveal group relative h-[340px] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/15 bg-[#092d37] cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37] hover:shadow-[0_25px_60px_rgba(212,175,55,0.3)]">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
+                <img src="Yachtdes.jpeg" alt="Yacht Experience" class="w-full h-full object-cover group-hover:scale-110 transition duration-1000">
+                <div class="absolute inset-0 p-8 flex flex-col justify-end z-20">
+                    <span class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-bold bg-black/40 backdrop-blur-md px-3 py-1 rounded-full w-max mb-3 border border-white/10">Maritime</span>
+                    <h3 class="text-2xl font-serif text-white group-hover:text-amber-200 transition-colors">Yacht</h3>
+                    <p class="text-xs text-gray-200 font-light mt-2 leading-relaxed">
+                        Multi-level superyachts and private coastal charters along Dubai Marina.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 2: Desert -->
+            <div class="sec2-reveal group relative h-[340px] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/15 bg-[#092d37] cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37] hover:shadow-[0_25px_60px_rgba(212,175,55,0.3)]" style="transition-delay: 100ms;">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
+                <img src="Dessertdes.jpeg" alt="Desert Experience" class="w-full h-full object-cover group-hover:scale-110 transition duration-1000">
+                <div class="absolute inset-0 p-8 flex flex-col justify-end z-20">
+                    <span class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-bold bg-black/40 backdrop-blur-md px-3 py-1 rounded-full w-max mb-3 border border-white/10">Sanctuary</span>
+                    <h3 class="text-2xl font-serif text-white group-hover:text-amber-200 transition-colors">Desert</h3>
+                    <p class="text-xs text-gray-200 font-light mt-2 leading-relaxed">
+                        Royal conservation reserves, private candlelit dinners, and dune safaris.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 3: Chauffeur -->
+            <div class="sec2-reveal group relative h-[340px] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/15 bg-[#092d37] cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37] hover:shadow-[0_25px_60px_rgba(212,175,55,0.3)] lg:col-span-1 md:col-span-2" style="transition-delay: 200ms;">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
+                <img src="Chaufferdes.jpeg" alt="Chauffeur Experience" class="w-full h-full object-cover group-hover:scale-110 transition duration-1000">
+                <div class="absolute inset-0 p-8 flex flex-col justify-end z-20">
+                    <span class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-bold bg-black/40 backdrop-blur-md px-3 py-1 rounded-full w-max mb-3 border border-white/10">Private Fleet</span>
+                    <h3 class="text-2xl font-serif text-white group-hover:text-amber-200 transition-colors">Chauffeur</h3>
+                    <p class="text-xs text-gray-200 font-light mt-2 leading-relaxed">
+                        Luxury supercars and professional chauffeured executive transit.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 4: Luxury Stay -->
+            <div class="sec2-reveal group relative h-[340px] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/15 bg-[#092d37] cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37] hover:shadow-[0_25px_60px_rgba(212,175,55,0.3)] lg:col-span-1 md:col-span-1" style="transition-delay: 300ms;">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
+                <img src="luxurystaydes.jpeg" alt="Luxury Stay" class="w-full h-full object-cover group-hover:scale-110 transition duration-1000">
+                <div class="absolute inset-0 p-8 flex flex-col justify-end z-20">
+                    <span class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-bold bg-black/40 backdrop-blur-md px-3 py-1 rounded-full w-max mb-3 border border-white/10">Residences</span>
+                    <h3 class="text-2xl font-serif text-white group-hover:text-amber-200 transition-colors">Luxury Stay</h3>
+                    <p class="text-xs text-gray-200 font-light mt-2 leading-relaxed">
+                        Palatial hotel suites, penthouses, and suspended infinity pool villas.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 5: Fine Dining -->
+            <div class="sec2-reveal group relative h-[340px] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/15 bg-[#092d37] cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37] hover:shadow-[0_25px_60px_rgba(212,175,55,0.3)] lg:col-span-2 md:col-span-1" style="transition-delay: 400ms;">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
+                <img src="fine dining.jpeg" alt="Fine Dining Experience" class="w-full h-full object-cover group-hover:scale-110 transition duration-1000">
+                <div class="absolute inset-0 p-8 flex flex-col justify-end z-20">
+                    <span class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-bold bg-black/40 backdrop-blur-md px-3 py-1 rounded-full w-max mb-3 border border-white/10">Gastronomy</span>
+                    <h3 class="text-2xl font-serif text-white group-hover:text-amber-200 transition-colors">Fine Dining</h3>
+                    <p class="text-xs text-gray-200 font-light mt-2 leading-relaxed">
+                        Michelin-starred culinary mastery and priority reservations at iconic venues.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 6: Shopping -->
+            <div class="sec2-reveal group relative h-[340px] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/15 bg-[#092d37] cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37] hover:shadow-[0_25px_60px_rgba(212,175,55,0.3)]" style="transition-delay: 500ms;">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
+                <img src="shoppingdes.jpeg" alt="Shopping Experience" class="w-full h-full object-cover group-hover:scale-110 transition duration-1000">
+                <div class="absolute inset-0 p-8 flex flex-col justify-end z-20">
+                    <span class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-bold bg-black/40 backdrop-blur-md px-3 py-1 rounded-full w-max mb-3 border border-white/10">Bespoke Retail</span>
+                    <h3 class="text-2xl font-serif text-white group-hover:text-amber-200 transition-colors">Shopping</h3>
+                    <p class="text-xs text-gray-200 font-light mt-2 leading-relaxed">
+                        Private personal shopping assistants and exclusive designer salon access.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 7: Aerial Attractions -->
+            <div class="sec2-reveal group relative h-[340px] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/15 bg-[#092d37] cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37] hover:shadow-[0_25px_60px_rgba(212,175,55,0.3)] lg:col-span-2 md:col-span-2" style="transition-delay: 600ms;">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
+                <img src="aerialattractiondes.jpeg" alt="Aerial Attractions" class="w-full h-full object-cover group-hover:scale-110 transition duration-1000">
+                <div class="absolute inset-0 p-8 flex flex-col justify-end z-20">
+                    <span class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-bold bg-black/40 backdrop-blur-md px-3 py-1 rounded-full w-max mb-3 border border-white/10">Skyline Views</span>
+                    <h3 class="text-2xl font-serif text-white group-hover:text-amber-200 transition-colors">Aerial Attractions</h3>
+                    <p class="text-xs text-gray-200 font-light mt-2 leading-relaxed">
+                        Private helicopter city tours and VIP sky-high observation decks.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Design Your Journey Button -->
+        <div class="text-center sec2-reveal pt-2">
+            <a href="destinations.html" class="animated-gold-btn inline-flex items-center space-x-3 px-10 py-4 rounded-full bg-[#D4AF37] text-black font-semibold text-xs tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer shadow-[0_10px_30px_rgba(212,175,55,0.4)] hover:shadow-[0_15px_40px_rgba(212,175,55,0.7)] group">
+                <span>Design Your Journey</span>
+                <i class="fa-solid fa-arrow-right-long transition-transform duration-300 group-hover:translate-x-1.5"></i>
+            </a>
+        </div>
+</section>
+
+<!-- Self-Contained Animation Script & Styles -->
+<style>
+    .sec2-reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .sec2-reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.sec2-reveal').forEach(el => {
+            observer.observe(el);
+        });
+    });
+</script>
+
+    <!-- ========================================== -->
+    <!-- SECTION 3: 3D CYLINDER ARC GALLERY -->
+    <!-- ========================================== -->
+    <section id="experiences" class="relative w-full py-16 px-4 bg-[#0b3844] overflow-hidden flex flex-col items-center justify-center min-h-[85vh]">
+        <div class="text-center z-20 mb-8 space-y-3 pointer-events-none">
+            <h2 class="text-3xl md:text-5xl font-serif font-light text-white tracking-wide">
+                Explore Dubai Beyond the Ordinary
+            </h2>
+            <p class="text-xs md:text-sm uppercase tracking-[0.25em] text-white/70 font-light">
+                Discover extraordinary places. Experience unforgettable moments.
+            </p>
+        </div>
+
+        <div class="relative w-full max-w-[1600px] h-[380px] md:h-[420px] flex items-center justify-center overflow-visible select-none" style="perspective: 1600px; -webkit-perspective: 1600px;">
+            <div id="cyl-gallery-track" class="absolute flex items-center justify-center w-full h-full" style="transform-style: preserve-3d; -webkit-transform-style: preserve-3d;">
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const dubaiGalleryItems = [
+            { title: "Museum of the Future", tag: "Architecture", img: "Museum of the Future.png" },
+            { title: "The Dubai Frame", tag: "Landmark", img: "The Dubai Frame.png" },
+            { title: "Dubai Marina & Yachts", tag: "Maritime", img: "Dubai Marina & Superyacht Harbor.png" },
+            { title: "Al Fahidi Quarter", tag: "Heritage", img: "Al Fahidi Historical Neighbourhood.png" },
+            { title: "Atlantis The Royal", tag: "Skyline Residence", img: "Atlanta.png" },
+            { title: "Royal Desert Oasis", tag: "Conservation", img: "Dessertdes.jpeg" },
+            { title: "Ain Dubai & Coast", tag: "Bluewaters", img: "Ain Dubai& Coast.png" },
+            { title: "Burj Khalifa Skyscraper", tag: "Downtown", img: "Burj Khalifa.png" }
+        ];
+
+        const galleryTrackEl = document.getElementById('cyl-gallery-track');
+        let currentAngle = 0;
+        let isGalleryRunning = false;
+        let animationHandle = null;
+
+        const loopItems = [...dubaiGalleryItems, ...dubaiGalleryItems, ...dubaiGalleryItems];
+        const totalItemsCount = loopItems.length;
+        const arcRadius = 650;
+
+        function buildGalleryDOM() {
+            galleryTrackEl.innerHTML = '';
+            loopItems.forEach((item) => {
+                const card = document.createElement('div');
+                card.className = "absolute w-[180px] md:w-[240px] h-[300px] md:h-[380px] rounded-xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.85)] border border-white/20 bg-[#092d37] flex flex-col cursor-pointer";
+                card.style.cssText = "transform-style: preserve-3d; -webkit-transform-style: preserve-3d; backface-visibility: hidden; position: absolute;";
+                
+                card.innerHTML = `
+                    <div class="relative w-full h-full overflow-hidden pointer-events-none">
+                        <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#092d37] via-black/30 to-transparent"></div>
+                        <span class="absolute top-3 left-3 text-[9px] uppercase tracking-widest text-amber-300 font-bold bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10">${item.tag}</span>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="text-xs md:text-sm font-serif text-white">${item.title}</h3>
+                        </div>
+                    </div>
+                `;
+                galleryTrackEl.appendChild(card);
+            });
+        }
+
+        function updateGalleryGeometry() {
+            const domCards = galleryTrackEl.children;
+            const angleStep = 360 / totalItemsCount;
+
+            for (let i = 0; i < domCards.length; i++) {
+                const itemAngle = (i * angleStep + currentAngle) % 360;
+                const radians = (itemAngle * Math.PI) / 180;
+                const x = Math.sin(radians) * arcRadius;
+                const z = Math.cos(radians) * arcRadius - arcRadius;
+                const rotY = -itemAngle;
+
+                let alpha = (Math.cos(radians) + 0.6) / 1.6;
+                alpha = Math.max(0, Math.min(1, Math.pow(alpha, 1.4)));
+
+                domCards[i].style.transform = `translateX(${x}px) translateZ(${z}px) rotateY(${rotY}deg)`;
+                domCards[i].style.webkitTransform = `translateX(${x}px) translateZ(${z}px) rotateY(${rotY}deg)`;
+                domCards[i].style.opacity = alpha;
+                domCards[i].style.zIndex = Math.round(Math.cos(radians) * 100 + 100);
+                domCards[i].style.pointerEvents = alpha > 0.3 ? 'auto' : 'none';
+            }
+        }
+
+        function runGalleryAnimation() {
+            if (!isGalleryRunning) return;
+            currentAngle -= 0.15;
+            updateGalleryGeometry();
+            animationHandle = requestAnimationFrame(runGalleryAnimation);
+        }
+
+        const observerInstance = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (!isGalleryRunning) {
+                        isGalleryRunning = true;
+                        runGalleryAnimation();
+                    }
+                } else {
+                    isGalleryRunning = false;
+                    cancelAnimationFrame(animationHandle);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        const sectionBlock = document.getElementById('experiences');
+        if (sectionBlock) {
+            observerInstance.observe(sectionBlock);
+        }
+
+        buildGalleryDOM();
+        updateGalleryGeometry();
+    </script>
+
+   <!-- ========================================== -->
+    <!-- SECTION 4: THE ELITE COLLECTION VIDEO SECTION -->
+    <!-- ========================================== -->
+    <section id="destinations" class="relative w-full h-[85vh] bg-[#0b3844] overflow-hidden flex items-center justify-center">
+        <!-- Organic Top Wave Transition Divider -->
+        <div class="absolute top-0 left-0 w-full overflow-hidden leading-none z-20 pointer-events-none">
+            <svg class="relative block w-full h-[60px] md:h-[100px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 C150,90 350,-40 500,60 C650,160 900,10 1200,40 L1200,0 L0,0 Z" fill="#0b3844"></path>
+            </svg>
+        </div>
+
+        <!-- Background Video -->
+        <video id="elite-video" muted playsinline class="absolute inset-0 w-full h-full object-cover">
+            <source src="section4.m4v" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Dark Gradient Tint for Legibility -->
+        <div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
+
+       <!-- End-of-Video Prompt (Appears when video ends) -->
+        <div id="video-end-overlay" class="absolute inset-0 flex flex-col items-center justify-center bg-black/75 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-1000 z-30 text-center px-6">
+            <h2 class="text-4xl md:text-6xl font-serif font-light text-white tracking-wide mb-6">
+                Contact us today
+            </h2>
+            <button id="open-inquiry-btn" class="px-10 py-4 rounded-full bg-white text-black hover:bg-gray-100 font-semibold text-xs tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer shadow-[0_10px_30px_rgba(255,255,255,0.3)] hover:shadow-[0_15px_40px_rgba(255,255,255,0.5)] hover:-translate-y-0.5">
+                Secure Your Experience
+            </button>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- INQUIRY FORM POPUP MODAL (HIDDEN BY DEFAULT) -->
+    <!-- ========================================== -->
+    <div id="inquiry-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 px-4">
+        <div class="relative w-full max-w-xl bg-[#092d37] border border-white/20 p-8 md:p-12 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] transform scale-95 transition-transform duration-500 text-left" id="modal-content">
+            <button id="close-modal-btn" class="absolute top-6 right-6 text-white/70 hover:text-white text-xl cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <span class="text-[10px] uppercase tracking-[0.3em] text-white/60 font-semibold">Private Concierge</span>
+            <h3 class="text-2xl md:text-3xl font-serif font-light text-white tracking-wide mt-1 mb-2">
+                Begin Your Journey
+            </h3>
+            <p class="text-xs text-white/70 font-light mb-6 leading-relaxed">
+                Connect with our advisors to secure your private charter or bespoke itinerary.
+            </p>
+            
+            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Your confidential inquiry has been transmitted successfully.'); closeModal();">
+                <div>
+                    <label class="block text-[10px] uppercase tracking-[0.2em] text-white/70 mb-2 font-medium">Full Name</label>
+                    <input type="text" required placeholder="Enter your full name" class="w-full px-4 py-3.5 bg-black/40 border border-white/20 rounded-xl text-white text-xs focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition">
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-[0.2em] text-white/70 mb-2 font-medium">Email Address</label>
+                        <input type="email" required placeholder="name@domain.com" class="w-full px-4 py-3.5 bg-black/40 border border-white/20 rounded-xl text-white text-xs focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-[0.2em] text-white/70 mb-2 font-medium">Phone Number</label>
+                        <input type="tel" placeholder="+971 XX XXX XXXX" class="w-full px-4 py-3.5 bg-black/40 border border-white/20 rounded-xl text-white text-xs focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] uppercase tracking-[0.2em] text-white/70 mb-2 font-medium">Experience of Interest</label>
+                    <select class="w-full px-4 py-3.5 bg-[#092d37] border border-white/20 rounded-xl text-white text-xs focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition">
+                        <option class="bg-[#092d37]">Private Jet Charters</option>
+                        <option class="bg-[#092d37]">Superyacht Harbor Leases</option>
+                        <option class="bg-[#092d37]">Royal Desert Sanctuaries</option>
+                        <option class="bg-[#092d37]">Bespoke Global Itinerary</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full py-4 mt-2 rounded-xl bg-white hover:bg-white/90 text-black font-semibold text-xs tracking-[0.25em] uppercase transition-all duration-300 cursor-pointer shadow-xl">
+                    Request Confidential Invite
+                </button>
+            </form>
+        </div>
+    </div>
+
+   <!-- ========================================== -->
+    <!-- SECTION: WHY CHOOSE US? -->
+    <!-- ========================================== -->
+    <section class="relative w-full py-24 px-6 md:px-16 bg-[#0b3844] overflow-hidden z-30">
+        <!-- Ambient Background Glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#D4AF37]/5 rounded-full blur-[140px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-16 sec2-reveal">
+                <span class="text-xs uppercase tracking-[0.3em] text-[#D4AF37] font-semibold mb-3 block">Service Beyond Expectation</span>
+                <h2 class="text-3xl md:text-5xl font-serif font-light text-white tracking-wide">
+                    Why Choose Us?
+                </h2>
+                <div class="w-16 h-0.5 bg-[#D4AF37] mx-auto mt-4"></div>
+            </div>
+
+            <!-- 4-Column Grid with Scroll Reveal -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Card 1: Personalized -->
+                <div class="why-choose-card sec2-reveal p-8 rounded-2xl flex flex-col justify-between text-left group cursor-pointer" style="transition-delay: 100ms;">
+                    <div>
+                        <div class="flex items-center justify-end mb-6">
+                            <div class="w-2 h-2 rounded-full bg-[#D4AF37]/40 group-hover:bg-[#D4AF37] transition-colors"></div>
+                        </div>
+                        <h3 class="text-xl font-serif text-white mb-3 group-hover:text-amber-200 transition-colors">Personalized</h3>
+                        <p class="text-xs text-white/70 font-light leading-relaxed">
+                            Every journey is designed around your preferences.
+                        </p>
+                    </div>
+                    <div class="w-12 h-0.5 bg-[#D4AF37]/40 mt-8 group-hover:w-full group-hover:bg-[#D4AF37] transition-all duration-500"></div>
+                </div>
+
+                <!-- Card 2: Private -->
+                <div class="why-choose-card sec2-reveal p-8 rounded-2xl flex flex-col justify-between text-left group cursor-pointer" style="transition-delay: 200ms;">
+                    <div>
+                        <div class="flex items-center justify-end mb-6">
+                            <div class="w-2 h-2 rounded-full bg-[#D4AF37]/40 group-hover:bg-[#D4AF37] transition-colors"></div>
+                        </div>
+                        <h3 class="text-xl font-serif text-white mb-3 group-hover:text-amber-200 transition-colors">Private</h3>
+                        <p class="text-xs text-white/70 font-light leading-relaxed">
+                            Enjoy experiences created with comfort, privacy and discretion in mind.
+                        </p>
+                    </div>
+                    <div class="w-12 h-0.5 bg-[#D4AF37]/40 mt-8 group-hover:w-full group-hover:bg-[#D4AF37] transition-all duration-500"></div>
+                </div>
+
+                <!-- Card 3: Effortless -->
+                <div class="why-choose-card sec2-reveal p-8 rounded-2xl flex flex-col justify-between text-left group cursor-pointer" style="transition-delay: 300ms;">
+                    <div>
+                        <div class="flex items-center justify-end mb-6">
+                            <div class="w-2 h-2 rounded-full bg-[#D4AF37]/40 group-hover:bg-[#D4AF37] transition-colors"></div>
+                        </div>
+                        <h3 class="text-xl font-serif text-white mb-3 group-hover:text-amber-200 transition-colors">Effortless</h3>
+                        <p class="text-xs text-white/70 font-light leading-relaxed">
+                            We coordinate the details so you can enjoy the journey.
+                        </p>
+                    </div>
+                    <div class="w-12 h-0.5 bg-[#D4AF37]/40 mt-8 group-hover:w-full group-hover:bg-[#D4AF37] transition-all duration-500"></div>
+                </div>
+
+                <!-- Card 4: Exceptional -->
+                <div class="why-choose-card sec2-reveal p-8 rounded-2xl flex flex-col justify-between text-left group cursor-pointer" style="transition-delay: 400ms;">
+                    <div>
+                        <div class="flex items-center justify-end mb-6">
+                            <div class="w-2 h-2 rounded-full bg-[#D4AF37]/40 group-hover:bg-[#D4AF37] transition-colors"></div>
+                        </div>
+                        <h3 class="text-xl font-serif text-white mb-3 group-hover:text-amber-200 transition-colors">Exceptional</h3>
+                        <p class="text-xs text-white/70 font-light leading-relaxed">
+                            From arrival to departure, every detail matters.
+                        </p>
+                    </div>
+                    <div class="w-12 h-0.5 bg-[#D4AF37]/40 mt-8 group-hover:w-full group-hover:bg-[#D4AF37] transition-all duration-500"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+   <!-- ========================================== -->
+    <!-- STYLISH ORGANIC WAVE FOOTER -->
+    <!-- ========================================== -->
+    <footer id="contact" class="relative bg-[#092d37] text-white overflow-hidden pt-0 z-30 mt-20">
+        <!-- Organic Wavy Divider -->
+        <div class="relative w-full overflow-hidden leading-none bg-[#0b3844]">
+            <svg class="relative block w-full h-[90px] md:h-[160px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 C150,130 350,-40 600,75 C850,190 1050,10 1200,50 L1200,120 L0,120 Z" fill="#092d37"></path>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-8 md:px-16 py-14 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 bg-[#092d37]">
+            <div class="space-y-4">
+                <img src="Beyond Experience logo(white).png" alt="Beyond Experience Logo" class="h-12 w-auto object-contain filter brightness-200" />
+                <p class="text-xs text-white/70 font-light leading-relaxed">
+                    Experience to aayega hi — Delivering extraordinary private getaways, luxury charters, and bespoke itineraries without compromise.
+                </p>
+                <div class="flex space-x-4 text-white text-sm pt-2">
+                    <a href="#" class="hover:text-amber-300 transition"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-amber-300 transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-amber-300 transition"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="hover:text-amber-300 transition"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-xs uppercase tracking-[0.25em] text-amber-300 font-bold mb-5">Services</h4>
+                <ul class="space-y-3 text-xs text-white/70 font-light">
+                    <li><a href="experiences.html?service=transportation" class="hover:text-amber-300 transition">First Class Transportation Experience</a></li>
+                    <li><a href="experiences.html?service=accommodation" class="hover:text-amber-300 transition">Luxury Accommodation & Stays Experience</a></li>
+                    <li><a href="experiences.html?service=concierge" class="hover:text-amber-300 transition">VIP Concierge Services Experience</a></li>
+                    <li><a href="experiences.html?service=activities" class="hover:text-amber-300 transition">Exclusive Attraction & Activities Experience</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs uppercase tracking-[0.25em] text-amber-300 font-bold mb-5">Quick Links</h4>
+                <ul class="space-y-3 text-xs text-white/70 font-light">
+                    <li><a href="about.html" class="hover:text-amber-300 transition">About Us</a></li>
+                    <li><a href="experiences.html" class="hover:text-amber-300 transition">Experiences</a></li>
+                    <li><a href="destinations.html" class="hover:text-amber-300 transition">Destinations</a></li>
+                    <li><a href="contactus.html" class="hover:text-amber-300 transition">Contact Concierge</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs uppercase tracking-[0.25em] text-amber-300 font-bold mb-5">Global Office</h4>
+                <p class="text-xs text-white/70 font-light leading-relaxed mb-4">
+                    510 Act Two Tower, Downtown Dubai, UAE
+                </p>
+                <p class="text-xs text-amber-300 font-medium">
+                    concierge@beyondexperience.com
+                </p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-8 md:px-16 py-6 flex flex-col md:flex-row items-center justify-between text-xs text-white/60 font-light bg-[#07222a]">
+            <p>&copy; 2026 BEYOND EXPERIENCE. All Rights Reserved. Experience to Aayega Hi.</p>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mt-4 md:mt-0">
+                <button onclick="openLegalModal('privacy')" class="hover:text-white transition cursor-pointer bg-transparent border-none text-xs text-white/60">Privacy Policy</button>
+                <button onclick="openLegalModal('terms')" class="hover:text-white transition cursor-pointer bg-transparent border-none text-xs text-white/60">Terms of Service</button>
+                <button onclick="openLegalModal('discretion')" class="hover:text-white transition cursor-pointer bg-transparent border-none text-xs text-white/60">Discretion Agreement</button>
+                <a href="https://clickormedia.com/" target="_blank" rel="noopener noreferrer" class="hover:text-amber-300 transition font-medium text-white/80">Crafted by Clickormedia</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LEGAL MODAL POP-UP OVERLAY -->
+    <div id="legalModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-[#092d37] border border-white/10 text-white w-11/12 max-w-2xl p-8 rounded-xl shadow-2xl relative transform scale-95 transition-transform duration-300" id="legalModalContainer">
+            <button onclick="closeLegalModal()" class="absolute top-4 right-4 text-white/60 hover:text-amber-300 text-xl font-bold cursor-pointer">&times;</button>
+            <h3 id="legalModalTitle" class="text-amber-300 text-lg uppercase tracking-wider font-semibold mb-4">Title</h3>
+            <div id="legalModalBody" class="text-xs text-white/80 font-light leading-relaxed max-h-[60vh] overflow-y-auto pr-2 space-y-3"></div>
+            <div class="mt-6 text-right">
+                <button onclick="closeLegalModal()" class="bg-amber-300 text-[#092d37] font-medium text-xs px-5 py-2 rounded transition hover:bg-amber-400 cursor-pointer">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL SCRIPT -->
+    <script>
+        const legalContent = {
+            privacy: {
+                title: "Privacy Policy",
+                content: "At Beyond Experience, we respect your privacy and protect your personal information with absolute discretion. We collect minimal data necessary to deliver world-class private charters, accommodations, and concierge services. Your information is never sold or shared with unauthorized third parties."
+            },
+            terms: {
+                title: "Terms of Service",
+                content: "By booking or utilizing services through Beyond Experience, you agree to our elite operational terms. All reservations, bespoke itineraries, and private leases are subject to availability, strict cancellation protocols, and our uncompromising standard of excellence."
+            },
+            discretion: {
+                title: "Discretion Agreement",
+                content: "Confidentiality is the cornerstone of our clientele relationship. All details concerning your private travels, itineraries, preferences, and identity remain strictly confidential and protected under our comprehensive zero-disclosure framework."
+            }
+        };
+
+        function openLegalModal(type) {
+            const modal = document.getElementById('legalModal');
+            const container = document.getElementById('legalModalContainer');
+            const title = document.getElementById('legalModalTitle');
+            const body = document.getElementById('legalModalBody');
+
+            title.innerText = legalContent[type].title;
+            body.innerText = legalContent[type].content;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                container.classList.remove('scale-95');
+                container.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeLegalModal() {
+            const modal = document.getElementById('legalModal');
+            const container = document.getElementById('legalModalContainer');
+
+            modal.classList.add('opacity-0');
+            container.classList.remove('scale-100');
+            container.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('legalModal');
+            if (event.target == modal) {
+                closeLegalModal();
+            }
+        }
+    </script>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC -->
+    <!-- ========================================== -->
+    <script>
+     window.addEventListener('load', () => {
+    setTimeout(() => {
+        const preloader = document.getElementById('preloader');
+        preloader.classList.add('fade-out');
+    }, 3000);
+});
+
+let destinations = [
+    { title: "Dubai Marina", tag: "Dubai Marina", img: "Dubai Marina.png" },
+    { title: "Burj Khalifa", tag: "Downtown Dubai", img: "Burj Khalifa.png" },
+    { title: "Burj Al Arab", tag: "Jumeirah Coast", img: "Burj Al Arab.png" },
+    { title: "Atlantis The Royal", tag: "Palm Jumeirah", img: "atlanta.png" }
+];
+
+let activeLayer = 1;
+let autoSlideInterval = null;
+
+const layer1 = document.getElementById('bg-layer-1');
+const layer2 = document.getElementById('bg-layer-2');
+const cardTrack = document.getElementById('dest-card-track');
+const dots = document.querySelectorAll('.dot-indicator');
+const navHome = document.getElementById('nav-home');
+
+function renderTrack() {
+    if (!cardTrack) return;
+    cardTrack.innerHTML = '';
+    
+    destinations.forEach((dest, idx) => {
+        const cardDiv = document.createElement('div');
+        const isFeatured = (idx === 0);
+        cardDiv.className = `dest-card-item ${isFeatured ? 'featured-card' : ''}`;
+        cardDiv.innerHTML = `
+            <img src="${dest.img}" alt="${dest.title}">
+            <div class="card-overlay">
+                <span class="text-[9px] uppercase tracking-widest text-amber-300 font-bold">${dest.tag}</span>
+                <h4 class="text-xs font-serif text-white mt-1">${dest.title}</h4>
+            </div>
+        `;
+        cardDiv.addEventListener('click', () => {
+            if (idx !== 0) {
+                clearInterval(autoSlideInterval);
+                for (let i = 0; i < idx; i++) {
+                    destinations.push(destinations.shift());
+                }
+                updateSlide();
+                startAutoSlide();
+            }
+        });
+        cardTrack.appendChild(cardDiv);
+    });
+
+    cardTrack.style.transform = `translateX(0px)`;
+}
+
+function updateSlide() {
+    const currentDest = destinations[0];
+
+    // Smooth background cross-fade
+    if (activeLayer === 1) {
+        layer2.style.backgroundImage = `url('${currentDest.img}')`;
+        layer2.classList.add('active');
+        layer1.classList.remove('active');
+        activeLayer = 2;
+    } else {
+        layer1.style.backgroundImage = `url('${currentDest.img}')`;
+        layer1.classList.add('active');
+        layer2.classList.remove('active');
+        activeLayer = 1;
+    }
+
+    renderTrack();
+}
+
+function nextSlide() {
+    clearInterval(autoSlideInterval);
+    destinations.push(destinations.shift());
+    updateSlide();
+    startAutoSlide();
+}
+
+function prevSlide() {
+    clearInterval(autoSlideInterval);
+    destinations.unshift(destinations.pop());
+    updateSlide();
+    startAutoSlide();
+}
+
+function startAutoSlide() {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(() => {
+        destinations.push(destinations.shift());
+        updateSlide();
+    }, 3000); // Faster slide interval (3 seconds)
+}
+
+document.getElementById('next-btn').addEventListener('click', nextSlide);
+document.getElementById('prev-btn').addEventListener('click', prevSlide);
+
+dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+        clearInterval(autoSlideInterval);
+        for (let step = 0; step < i; step++) {
+            destinations.push(destinations.shift());
+        }
+        updateSlide();
+        startAutoSlide();
+    });
+});
+
+if (navHome) {
+    navHome.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+renderTrack();
+updateSlide();
+startAutoSlide();
+
+        const eliteVideo = document.getElementById('elite-video');
+        const videoEndOverlay = document.getElementById('video-end-overlay');
+        const openInquiryBtn = document.getElementById('open-inquiry-btn');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const inquiryModal = document.getElementById('inquiry-modal');
+        const modalContent = document.getElementById('modal-content');
+
+        let pauseTimer = null;
+
+        function resetAndPlayVideo() {
+            videoEndOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+            videoEndOverlay.classList.add('opacity-0', 'pointer-events-none');
+            eliteVideo.currentTime = 0;
+            eliteVideo.play().catch(() => {});
+        }
+
+        eliteVideo.addEventListener('ended', () => {
+            videoEndOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            videoEndOverlay.classList.add('opacity-100', 'pointer-events-auto');
+
+            clearTimeout(pauseTimer);
+            pauseTimer = setTimeout(() => {
+                resetAndPlayVideo();
+            }, 5000);
+        });
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    resetAndPlayVideo();
+                } else {
+                    eliteVideo.pause();
+                    clearTimeout(pauseTimer);
+                    videoEndOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+                    videoEndOverlay.classList.add('opacity-0', 'pointer-events-none');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sectionObserver.observe(document.getElementById('destinations'));
+
+        openInquiryBtn.addEventListener('click', () => {
+            clearTimeout(pauseTimer);
+            inquiryModal.classList.remove('opacity-0', 'pointer-events-none');
+            inquiryModal.classList.add('opacity-100', 'pointer-events-auto');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        });
+
+        function closeModal() {
+            inquiryModal.classList.remove('opacity-100', 'pointer-events-auto');
+            inquiryModal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            
+            pauseTimer = setTimeout(() => {
+                resetAndPlayVideo();
+            }, 5000);
+        }
+
+        closeModalBtn.addEventListener('click', closeModal);
+        
+        inquiryModal.addEventListener('click', (e) => {
+            if (e.target === inquiryModal) {
+                closeModal();
+            }
+        });
+    </script>
+    <script>
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzR2orZHQn_ufHpc7V69q3CHhfeMd0Qo5TrfDarV5HeVvkNqVkTQLSj2Y06dwoj-8sU/exec";
+
+    // 1. Form 1: Private Concierge Reservation Modal
+    // (Ensure your form/submit button triggers this or adapt selectors to match your HTML element IDs)
+    function submitConciergeReservation(destination, guests, checkIn, checkOut, fullName, phone, email) {
+        const payload = {
+            formType: "concierge_reservation",
+            destination: destination,
+            guests: guests,
+            checkIn: checkIn,
+            checkOut: checkOut,
+            fullName: fullName,
+            phone: phone,
+            email: email
+        };
+
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            alert("Reservation request submitted successfully!");
+        })
+        .catch(error => console.error("Error:", error));
+    }
+
+    // 2. Form 2: Begin Your Journey Modal
+    function submitBeginJourney(fullName, email, phone, experience) {
+        const payload = {
+            formType: "begin_journey",
+            fullName: fullName,
+            email: email,
+            phone: phone,
+            experience: experience
+        };
+
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            alert("Confidential invite request submitted successfully!");
+        })
+        .catch(error => console.error("Error:", error));
+    }
+</script>
+</body>
+</html>

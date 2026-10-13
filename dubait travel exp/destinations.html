@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEYOND EXPERIENCE | Elite Destinations & Packages</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tealBg: '#0b3844',
+                        cardDark: '#092d37',
+                        goldAccent: '#C5A059'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b3844;
+            color: #ffffff;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* --- BORDERLESS TRANSPARENT GLASS NAVBAR --- */
+        .glass-nav {
+            background: rgba(11, 56, 68, 0.15);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* --- SCROLL REVEAL ANIMATIONS --- */
+        .reveal-group {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-group.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- SOPHISTICATED SUBTLE GOLD BUTTON --- */
+        .luxury-gold-btn {
+            background-color: #C5A059;
+            color: #07222a;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.2);
+        }
+        .luxury-gold-btn:hover {
+            background-color: #dfbc73;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(197, 160, 89, 0.4);
+        }
+
+        /* --- CINEMATIC GLASS DESTINATION WINDOW --- */
+        .destination-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(3, 10, 14, 0.88);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 1.5rem;
+        }
+
+        .destination-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .destination-glass-window {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            height: 85vh;
+            background-size: cover;
+            background-position: center;
+            border-radius: 32px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 30px 90px rgba(0,0,0,0.85);
+            transform: scale(0.95);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 2.5rem;
+        }
+
+        .destination-modal-overlay.active .destination-glass-window {
+            transform: scale(1);
+        }
+
+        .glass-pill-nav {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 9999px;
+            padding: 0.75rem 1.75rem;
+        }
+
+        .glass-info-card {
+            background: rgba(11, 56, 68, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 1.75rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        /* Form view inside the glass card */
+        .form-view {
+            display: none;
+            max-height: calc(85vh - 180px);
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .form-view::-webkit-scrollbar {
+            width: 4px;
+        }
+        .form-view::-webkit-scrollbar-thumb {
+            background: rgba(197, 160, 89, 0.4);
+            border-radius: 4px;
+        }
+        .form-view.active {
+            display: block;
+            animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .overview-view.hidden-view {
+            display: none;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ========================================== -->
+    <!-- BORDERLESS TRANSPARENT GLASS NAVBAR -->
+    <!-- ========================================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 w-full px-8 md:px-16 py-3 grid grid-cols-3 items-center glass-nav">
+    <!-- Left: Logo -->
+    <div class="flex items-center justify-start">
+        <a href="index.html">
+            <img src="Beyond Experience logo(white).png" alt="Beyond Experience Logo" class="h-14 md:h-16 w-auto object-contain filter brightness-200" />
+        </a>
+    </div>
+
+    <!-- Center: Navigation Links -->
+    <nav class="hidden md:flex items-center justify-center space-x-8 lg:space-x-10 text-xs font-medium tracking-wide text-white/90 whitespace-nowrap">
+        <a href="index.html" class="hover:text-amber-200 transition cursor-pointer">Home</a>
+        <a href="about.html" class="hover:text-amber-200 transition cursor-pointer">About</a>
+        <a href="experiences.html" class="hover:text-amber-200 transition cursor-pointer">Experiences</a>
+        <a href="destinations.html" class="hover:text-amber-200 transition cursor-pointer">Destinations</a>
+        <a href="contactus.html" class="hover:text-amber-300 font-semibold transition cursor-pointer">Contact Us</a>
+    </nav>
+
+    <!-- Right: Empty Spacer to balance the grid -->
+    <div></div>
+</header>
+
+
+    <!-- ========================================== -->
+    <!-- HERO SECTION: DESTINATIONS -->
+    <!-- ========================================== -->
+    <section class="relative w-full h-[85vh] flex items-center justify-center text-center px-6 overflow-hidden bg-[#0b3844] pt-24">
+        <div class="absolute inset-0 bg-cover bg-center opacity-45" style="background-image: linear-gradient(to bottom, rgba(11, 56, 68, 0.4), rgba(11, 56, 68, 0.95)), url('https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=2000&q=80');"></div>
+        
+        <div class="relative z-10 max-w-3xl mx-auto space-y-4 animate-fade-in">
+            <span class="text-xs uppercase tracking-[0.3em] text-amber-300 font-bold bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10">Global Footprint</span>
+            <h1 class="text-5xl md:text-7xl font-serif font-light tracking-tight text-white">
+                Elite Destinations
+            </h1>
+            <p class="text-white/80 text-sm md:text-base font-light max-w-xl mx-auto leading-relaxed">
+                Experience to aayega hi — discover iconic architectural marvels, private island retreats, and secluded desert estates across the Emirates.
+            </p>
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- DESTINATIONS GRID SECTION -->
+    <!-- ========================================== -->
+    <section class="relative w-full py-28 px-8 md:px-16 bg-[#0b3844] overflow-hidden">
+        <div class="max-w-7xl mx-auto space-y-28">
+            
+            <!-- Destination 1 -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center reveal-group">
+                <div class="lg:col-span-6 h-[400px] rounded-3xl overflow-hidden shadow-2xl border border-white/15 group relative">
+                    <img src="https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1200&q=80" alt="Downtown Dubai & Burj Khalifa" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="lg:col-span-6 space-y-6">
+                    <span class="text-xs uppercase tracking-[0.25em] text-amber-300 font-bold">Downtown & Boulevard</span>
+                    <h2 class="text-3xl md:text-4xl font-serif text-white">Downtown Dubai Skyline Residences</h2>
+                    <p class="text-white/70 text-sm font-light leading-relaxed">
+                        Reside at the epicenter of luxury. Enjoy ultra-private penthouse suites overlooking the Burj Khalifa and Dubai Fountain with dedicated 24/7 butler service and chauffeured fleets.
+                    </p>
+                    <button onclick="openModal('Downtown Dubai Skyline Residences')" class="luxury-gold-btn px-8 py-3.5 rounded-full font-semibold text-xs tracking-widest uppercase transition cursor-pointer">
+                        Explore Destination <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Destination 2 -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center reveal-group">
+                <div class="lg:col-span-6 lg:order-2 h-[400px] rounded-3xl overflow-hidden shadow-2xl border border-white/15 group relative">
+                    <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1200&q=80" alt="Palm Jumeirah" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="lg:col-span-6 lg:order-1 space-y-6">
+                    <span class="text-xs uppercase tracking-[0.25em] text-amber-300 font-bold">Palm Jumeirah</span>
+                    <h2 class="text-3xl md:text-4xl font-serif text-white">Private Island Beachfront Estates</h2>
+                    <p class="text-white/70 text-sm font-light leading-relaxed">
+                        Experience absolute seclusion on the fronds of Palm Jumeirah. Private infinity pools merging with the Arabian Gulf, private yacht moorings, and bespoke wellness retreats.
+                    </p>
+                    <button onclick="openModal('Private Island Beachfront Estates')" class="luxury-gold-btn px-8 py-3.5 rounded-full font-semibold text-xs tracking-widest uppercase transition cursor-pointer">
+                        Explore Destination <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Destination 3 -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center reveal-group">
+                <div class="lg:col-span-6 h-[400px] rounded-3xl overflow-hidden shadow-2xl border border-white/15 group relative">
+                    <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1200&q=80" alt="Dubai Desert Conservation Reserve" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="lg:col-span-6 space-y-6">
+                    <span class="text-xs uppercase tracking-[0.25em] text-amber-300 font-bold">Royal Desert Conservation</span>
+                    <h2 class="text-3xl md:text-4xl font-serif text-white">Al Maha Desert Oasis</h2>
+                    <p class="text-white/70 text-sm font-light leading-relaxed">
+                        Immerse yourself in timeless Arabian heritage. Luxury tented villas featuring private temperature-controlled pools tucked amidst sand dunes teeming with native gazelles and oryx.
+                    </p>
+                    <button onclick="openModal('Al Maha Desert Oasis')" class="luxury-gold-btn px-8 py-3.5 rounded-full font-semibold text-xs tracking-widest uppercase transition cursor-pointer">
+                        Explore Destination <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Destination 4 -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center reveal-group">
+                <div class="lg:col-span-6 lg:order-2 h-[400px] rounded-3xl overflow-hidden shadow-2xl border border-white/15 group relative">
+                    <img src="Dubai Marina & Superyacht Harbor.png" alt="Dubai Marina & Superyacht Harbor" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="lg:col-span-6 lg:order-1 space-y-6">
+                    <span class="text-xs uppercase tracking-[0.25em] text-amber-300 font-bold">Maritime Waterfront</span>
+                    <h2 class="text-3xl md:text-4xl font-serif text-white">Dubai Marina & Superyacht Harbor</h2>
+                    <p class="text-white/70 text-sm font-light leading-relaxed">
+                        Sail from private berths surrounded by futuristic high-rises. Enjoy waterfront dining, luxury yacht charters, and vibrant promenade promenades right at your doorstep.
+                    </p>
+                    <button onclick="openModal('Dubai Marina & Superyacht Harbor')" class="luxury-gold-btn px-8 py-3.5 rounded-full font-semibold text-xs tracking-widest uppercase transition cursor-pointer">
+                        Explore Destination <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Destination 5 -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center reveal-group">
+                <div class="lg:col-span-6 h-[400px] rounded-3xl overflow-hidden shadow-2xl border border-white/15 group relative">
+                    <img src="Al Fahidi Historical Neighbourhood.png" alt="Al Fahidi Historical Neighbourhood" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="lg:col-span-6 space-y-6">
+                    <span class="text-xs uppercase tracking-[0.25em] text-amber-300 font-bold">Heritage & Culture</span>
+                    <h2 class="text-3xl md:text-4xl font-serif text-white">Al Fahidi Quarter & Dubai Creek</h2>
+                    <p class="text-white/70 text-sm font-light leading-relaxed">
+                        Discover old Dubai's cultural soul. Stroll through restored wind-tower alleys, art galleries, and private traditional abra crossings along the historic Dubai Creek.
+                    </p>
+                    <button onclick="openModal('Al Fahidi Quarter & Dubai Creek')" class="luxury-gold-btn px-8 py-3.5 rounded-full font-semibold text-xs tracking-widest uppercase transition cursor-pointer">
+                        Explore Destination <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- SIGNATURE LUXURY PACKAGES SECTION -->
+    <!-- ========================================== -->
+    <section class="relative w-full py-28 px-8 md:px-16 bg-[#072a32] overflow-hidden">
+        <div class="max-w-7xl mx-auto space-y-16 relative z-10">
+            
+            <div class="text-center max-w-2xl mx-auto reveal-group">
+                <span class="text-xs uppercase tracking-[0.3em] text-[#C5A059] font-bold block mb-3">Tailored Offerings</span>
+                <h2 class="text-3xl md:text-5xl font-serif font-light text-white tracking-wide">
+                    Exclusive Travel Packages
+                </h2>
+                <div class="w-16 h-0.5 bg-[#C5A059] mx-auto mt-4"></div>
+            </div>
+
+            <!-- 6 Packages Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Package 1 -->
+                <div class="reveal-group bg-[#092d37] border border-white/10 p-8 rounded-2xl flex flex-col justify-between hover:border-[#C5A059] transition-all duration-500">
+                    <div>
+                        <span class="text-[9px] uppercase tracking-widest text-[#C5A059] font-bold block mb-3">Bespoke</span>
+                        <h3 class="text-xl font-serif text-white mb-3">Customized Luxury Itineraries</h3>
+                        <p class="text-xs text-white/70 font-light leading-relaxed mb-6">Tailored down to the finest detail around your personal preferences and schedule.</p>
+                    </div>
+                </div>
+
+                <!-- Package 2 -->
+                <div class="reveal-group bg-[#092d37] border border-white/10 p-8 rounded-2xl flex flex-col justify-between hover:border-[#C5A059] transition-all duration-500" style="transition-delay: 100ms;">
+                    <div>
+                        <span class="text-[9px] uppercase tracking-widest text-[#C5A059] font-bold block mb-3">Multi-Generational</span>
+                        <h3 class="text-xl font-serif text-white mb-3">Family Luxury Holidays</h3>
+                        <p class="text-xs text-white/70 font-light leading-relaxed mb-6">Immersive theme parks, private family resorts, and engaging escorted excursions.</p>
+                    </div>
+                </div>
+
+                <!-- Package 3 -->
+                <div class="reveal-group bg-[#092d37] border border-white/10 p-8 rounded-2xl flex flex-col justify-between hover:border-[#C5A059] transition-all duration-500" style="transition-delay: 200ms;">
+                    <div>
+                        <span class="text-[9px] uppercase tracking-widest text-[#C5A059] font-bold block mb-3">Executive</span>
+                        <h3 class="text-xl font-serif text-white mb-3">Corporate & Executive Travel</h3>
+                        <p class="text-xs text-white/70 font-light leading-relaxed mb-6">Private jet charters, board retreats, and VIP corporate hospitality management.</p>
+                    </div>
+                </div>
+
+                <!-- Package 4 -->
+                <div class="reveal-group bg-[#092d37] border border-white/10 p-8 rounded-2xl flex flex-col justify-between hover:border-[#C5A059] transition-all duration-500" style="transition-delay: 300ms;">
+                    <div>
+                        <span class="text-[9px] uppercase tracking-widest text-[#C5A059] font-bold block mb-3">Extended Stay</span>
+                        <h3 class="text-xl font-serif text-white mb-3">Multi-Day Dubai Packages</h3>
+                        <p class="text-xs text-white/70 font-light leading-relaxed mb-6">Comprehensive multi-day itineraries covering skyline marvels and desert sanctuaries.</p>
+                    </div>
+                </div>
+
+                <!-- Package 5 -->
+                <div class="reveal-group bg-[#092d37] border border-white/10 p-8 rounded-2xl flex flex-col justify-between hover:border-[#C5A059] transition-all duration-500" style="transition-delay: 400ms;">
+                    <div>
+                        <span class="text-[9px] uppercase tracking-widest text-[#C5A059] font-bold block mb-3">Transit Elite</span>
+                        <h3 class="text-xl font-serif text-white mb-3">Luxury Stopover Packages</h3>
+                        <p class="text-xs text-white/70 font-light leading-relaxed mb-6">High-impact private tours and luxury transit for travelers passing through Dubai.</p>
+                    </div>
+                </div>
+
+                <!-- Package 6 -->
+                <div class="reveal-group bg-[#092d37] border border-white/10 p-8 rounded-2xl flex flex-col justify-between hover:border-[#C5A059] transition-all duration-500" style="transition-delay: 500ms;">
+                    <div>
+                        <span class="text-[9px] uppercase tracking-widest text-[#C5A059] font-bold block mb-3">Milestone</span>
+                        <h3 class="text-xl font-serif text-white mb-3">Group Celebration Travel</h3>
+                        <p class="text-xs text-white/70 font-light leading-relaxed mb-6">Grand anniversaries, private yacht parties, and exclusive group gatherings.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Single Inquire Button for All Packages -->
+            <div class="text-center pt-8 reveal-group">
+                <button onclick="openPackageInquiryModal()" class="luxury-gold-btn px-10 py-4 rounded-full font-semibold text-xs tracking-widest uppercase transition cursor-pointer shadow-2xl">
+                    Inquire About Packages <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- CINEMATIC DESTINATION SHOWCASE MODAL -->
+    <!-- ========================================== -->
+    <div id="destination-modal" class="destination-modal-overlay">
+        <div id="modal-glass-container" class="destination-glass-window" style="background-image: linear-gradient(to top, rgba(3,10,14,0.95) 10%, rgba(3,10,14,0.3) 60%, rgba(3,10,14,0.6) 100%), url('https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1600&q=80');">
+            
+            <!-- Top Navigation Bar inside Window -->
+            <div class="flex items-center justify-between w-full z-20">
+                <div class="glass-pill-nav flex items-center space-x-6 text-xs font-medium text-white/90">
+                    <span id="modal-badge" class="text-[#C5A059] uppercase tracking-widest font-bold">Exclusive Sanctuary</span>
+                    <span class="border-l border-white/20 pl-4 hidden sm:inline">Beyond Experience Collection</span>
+                </div>
+                
+                <button onclick="closeDestinationModal()" class="w-12 h-12 rounded-full glass-pill-nav flex items-center justify-center text-white hover:bg-white/20 transition cursor-pointer">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- View 1: Overview Content -->
+            <div id="overview-view" class="overview-view my-auto max-w-2xl z-20 space-y-4">
+                <span class="text-xs uppercase tracking-[0.3em] text-[#C5A059] font-bold block">Featured Selection</span>
+                <h2 id="modal-dest-title" class="text-4xl md:text-6xl font-serif font-light text-white leading-tight">
+                    Downtown Dubai Skyline Residences
+                </h2>
+                <p id="modal-dest-desc" class="text-white/80 text-xs md:text-sm font-light leading-relaxed max-w-lg">
+                    Reside at the epicenter of luxury. Enjoy ultra-private penthouse suites overlooking the Burj Khalifa with dedicated 24/7 butler service.
+                </p>
+            </div>
+
+            <!-- View 2: Inquiry Form View (Hidden by default) -->
+            <div id="form-view" class="form-view my-auto max-w-xl z-20 bg-black/60 backdrop-blur-2xl p-8 rounded-3xl border border-white/20">
+                <span class="text-[10px] uppercase tracking-[0.3em] text-[#C5A059] font-semibold">Private Concierge Reservation</span>
+                <h3 class="text-2xl font-serif text-white mt-1 mb-2">Complete Your Request</h3>
+                <p class="text-xs text-white/70 font-light mb-6">Our advisors will reach out to finalize your bespoke arrangements.</p>
+                
+                <form class="space-y-4" onsubmit="event.preventDefault(); alert('Your reservation request has been successfully transmitted.'); closeDestinationModal();">
+                    
+                    <!-- Package Selection Field (Dynamically shown when opened from package inquiry) -->
+                    <div id="package-select-wrapper" style="display: none;">
+                        <label class="block text-[10px] uppercase tracking-[0.2em] text-white/70 mb-2 font-medium">Select Package</label>
+                        <select id="package-dropdown" class="w-full px-4 py-3.5 bg-black/60 border border-white/20 rounded-xl text-white text-xs focus:outline-none focus:border-[#C5A059] transition">
+                            <option value="" disabled selected>Choose an exclusive package</option>
+                            <option value="Customized Luxury Itineraries">Customized Luxury Itineraries</option>
+                            <option value="Family Luxury Holidays">Family Luxury Holidays</option>
+                            <option value="Corporate & Executive Travel">Corporate & Executive Travel</option>
+                            <option value="Multi-Day Dubai Packages">Multi-Day Dubai Packages</option>
+                            <option value="Luxury Stopover Packages">Luxury Stopover Packages</option>
+                            <option value="Group Celebration Travel">Group Celebration Travel</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-[0.2em] text-white/70 mb-2 font-medium">Full Name</label>
+                        <input type="text" required placeholder="Enter your full name" class="w-full px-4 py-3.5 bg-black/40 border border-white/20 rounded-xl text-white text-xs focus:outline-none focus:border-[#C5A059] transition">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] uppercase tracking-[0.2em] text-white/70 mb-2 font-medium">Email Address</label>
+                            <input type="email" required placeholder="name@domain.com" class="w-full px-4 py-3.5 bg-black/40 border border-white/20 rounded-xl text-white text-xs focus:outline-none focus:border-[#C5A059] transition">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase tracking-[0.2em] text-white/70 mb-2 font-medium">Phone Number</label>
+                            <input type="tel" required placeholder="+971 XX XXX XXXX" class="w-full px-4 py-3.5 bg-black/40 border border-white/20 rounded-xl text-white text-xs focus:outline-none focus:border-[#C5A059] transition">
+                        </div>
+                    </div>
+                    <div class="flex space-x-3 pt-2">
+                        <button type="button" onclick="toggleFormView(false)" class="w-1/3 py-3.5 rounded-xl border border-white/20 text-white hover:bg-white/10 font-semibold text-xs tracking-widest uppercase transition cursor-pointer">
+                            Back
+                        </button>
+                        <button type="submit" class="w-2/3 py-3.5 rounded-xl luxury-gold-btn font-semibold text-xs tracking-widest uppercase transition cursor-pointer shadow-xl">
+                            Submit Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Bottom Floating Action Bar -->
+            <div id="bottom-action-bar" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-end z-20">
+                <div class="md:col-span-7 glass-info-card flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-[#C5A059] font-bold block mb-1">Service Assurance</span>
+                        <h4 class="text-lg font-serif text-white">Private Concierge & Access</h4>
+                        <p class="text-[11px] text-white/70 font-light mt-1">Tailored itineraries and priority bookings arranged without compromise.</p>
+                    </div>
+                </div>
+
+                <div class="md:col-span-5 flex justify-end">
+                    <button onclick="toggleFormView(true)" class="w-full md:w-auto px-8 py-5 rounded-2xl luxury-gold-btn font-semibold text-xs tracking-widest uppercase transition cursor-pointer flex items-center justify-center space-x-3 shadow-2xl">
+                        <span>Secure Now</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- STYLISH ORGANIC WAVE FOOTER -->
+    <!-- ========================================== -->
+    <footer id="contact" class="relative bg-[#092d37] text-white overflow-hidden pt-0 z-30 mt-20">
+        <!-- Organic Wavy Divider -->
+        <div class="relative w-full overflow-hidden leading-none bg-[#0b3844]">
+            <svg class="relative block w-full h-[90px] md:h-[160px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 C150,130 350,-40 600,75 C850,190 1050,10 1200,50 L1200,120 L0,120 Z" fill="#092d37"></path>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-8 md:px-16 py-14 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 bg-[#092d37]">
+            <div class="space-y-4">
+                <img src="Beyond Experience logo(white).png" alt="Beyond Experience Logo" class="h-12 w-auto object-contain filter brightness-200" />
+                <p class="text-xs text-white/70 font-light leading-relaxed">
+                    Experience to aayega hi — Delivering extraordinary private getaways, luxury charters, and bespoke itineraries without compromise.
+                </p>
+                <div class="flex space-x-4 text-white text-sm pt-2">
+                    <a href="#" class="hover:text-amber-300 transition"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-amber-300 transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-amber-300 transition"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="hover:text-amber-300 transition"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-xs uppercase tracking-[0.25em] text-amber-300 font-bold mb-5">Services</h4>
+                <ul class="space-y-3 text-xs text-white/70 font-light">
+                    <li><a href="experiences.html?service=transportation" class="hover:text-amber-300 transition">First Class Transportation Experience</a></li>
+                    <li><a href="experiences.html?service=accommodation" class="hover:text-amber-300 transition">Luxury Accommodation & Stays Experience</a></li>
+                    <li><a href="experiences.html?service=concierge" class="hover:text-amber-300 transition">VIP Concierge Services Experience</a></li>
+                    <li><a href="experiences.html?service=activities" class="hover:text-amber-300 transition">Exclusive Attraction & Activities Experience</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs uppercase tracking-[0.25em] text-amber-300 font-bold mb-5">Quick Links</h4>
+                <ul class="space-y-3 text-xs text-white/70 font-light">
+                    <li><a href="about.html" class="hover:text-amber-300 transition">About Us</a></li>
+                    <li><a href="experiences.html" class="hover:text-amber-300 transition">Experiences</a></li>
+                    <li><a href="destinations.html" class="hover:text-amber-300 transition">Destinations</a></li>
+                    <li><a href="contactus.html" class="hover:text-amber-300 transition">Contact Concierge</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs uppercase tracking-[0.25em] text-amber-300 font-bold mb-5">Global Office</h4>
+                <p class="text-xs text-white/70 font-light leading-relaxed mb-4">
+                    510 Act Two Tower, Downtown Dubai, UAE
+                </p>
+                <p class="text-xs text-amber-300 font-medium">
+                    concierge@beyondexperience.com
+                </p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-8 md:px-16 py-6 flex flex-col md:flex-row items-center justify-between text-xs text-white/60 font-light bg-[#07222a]">
+            <p>&copy; 2026 BEYOND EXPERIENCE. All Rights Reserved. Experience to Aayega Hi.</p>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mt-4 md:mt-0">
+                <button onclick="openLegalModal('privacy')" class="hover:text-white transition cursor-pointer bg-transparent border-none text-xs text-white/60">Privacy Policy</button>
+                <button onclick="openLegalModal('terms')" class="hover:text-white transition cursor-pointer bg-transparent border-none text-xs text-white/60">Terms of Service</button>
+                <button onclick="openLegalModal('discretion')" class="hover:text-white transition cursor-pointer bg-transparent border-none text-xs text-white/60">Discretion Agreement</button>
+                <a href="https://clickormedia.com/" target="_blank" rel="noopener noreferrer" class="hover:text-amber-300 transition font-medium text-white/80">Crafted by Clickormedia</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LEGAL MODAL POP-UP OVERLAY -->
+    <div id="legalModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-[#092d37] border border-white/10 text-white w-11/12 max-w-2xl p-8 rounded-xl shadow-2xl relative transform scale-95 transition-transform duration-300" id="legalModalContainer">
+            <button onclick="closeLegalModal()" class="absolute top-4 right-4 text-white/60 hover:text-amber-300 text-xl font-bold cursor-pointer">&times;</button>
+            <h3 id="legalModalTitle" class="text-amber-300 text-lg uppercase tracking-wider font-semibold mb-4">Title</h3>
+            <div id="legalModalBody" class="text-xs text-white/80 font-light leading-relaxed max-h-[60vh] overflow-y-auto pr-2 space-y-3"></div>
+            <div class="mt-6 text-right">
+                <button onclick="closeLegalModal()" class="bg-amber-300 text-[#092d37] font-medium text-xs px-5 py-2 rounded transition hover:bg-amber-400 cursor-pointer">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL SCRIPT -->
+    <script>
+        const legalContent = {
+            privacy: {
+                title: "Privacy Policy",
+                content: "At Beyond Experience, we respect your privacy and protect your personal information with absolute discretion. We collect minimal data necessary to deliver world-class private charters, accommodations, and concierge services. Your information is never sold or shared with unauthorized third parties."
+            },
+            terms: {
+                title: "Terms of Service",
+                content: "By booking or utilizing services through Beyond Experience, you agree to our elite operational terms. All reservations, bespoke itineraries, and private leases are subject to availability, strict cancellation protocols, and our uncompromising standard of excellence."
+            },
+            discretion: {
+                title: "Discretion Agreement",
+                content: "Confidentiality is the cornerstone of our clientele relationship. All details concerning your private travels, itineraries, preferences, and identity remain strictly confidential and protected under our comprehensive zero-disclosure framework."
+            }
+        };
+
+        function openLegalModal(type) {
+            const modal = document.getElementById('legalModal');
+            const container = document.getElementById('legalModalContainer');
+            const title = document.getElementById('legalModalTitle');
+            const body = document.getElementById('legalModalBody');
+
+            title.innerText = legalContent[type].title;
+            body.innerText = legalContent[type].content;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                container.classList.remove('scale-95');
+                container.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeLegalModal() {
+            const modal = document.getElementById('legalModal');
+            const container = document.getElementById('legalModalContainer');
+
+            modal.classList.add('opacity-0');
+            container.classList.remove('scale-100');
+            container.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('legalModal');
+            if (event.target == modal) {
+                closeLegalModal();
+            }
+        }
+    </script>
+
+    <!-- ========================================== -->
+    <!-- INTERACTIVE ANIMATION & MODAL JAVASCRIPT -->
+    <!-- ========================================== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.12 });
+
+            document.querySelectorAll('.reveal-group').forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        const destModal = document.getElementById('destination-modal');
+        const modalContainer = document.getElementById('modal-glass-container');
+        const modalTitle = document.getElementById('modal-dest-title');
+        const modalDesc = document.getElementById('modal-dest-desc');
+        const modalBadge = document.getElementById('modal-badge');
+        const overviewView = document.getElementById('overview-view');
+        const formView = document.getElementById('form-view');
+        const bottomActionBar = document.getElementById('bottom-action-bar');
+        const packageSelectWrapper = document.getElementById('package-select-wrapper');
+
+        const destinationData = {
+            'Downtown Dubai Skyline Residences': {
+                badge: 'Downtown & Boulevard',
+                desc: 'Reside at the epicenter of luxury. Enjoy ultra-private penthouse suites overlooking the Burj Khalifa and Dubai Fountain with dedicated 24/7 butler service and chauffeured fleets.',
+                img: 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1600&q=80'
+            },
+            'Private Island Beachfront Estates': {
+                badge: 'Palm Jumeirah',
+                desc: 'Experience absolute seclusion on the fronds of Palm Jumeirah. Private infinity pools merging with the Arabian Gulf, private yacht moorings, and bespoke wellness retreats.',
+                img: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1600&q=80'
+            },
+            'Al Maha Desert Oasis': {
+                badge: 'Royal Desert Conservation',
+                desc: 'Immerse yourself in timeless Arabian heritage. Luxury tented villas featuring private temperature-controlled pools tucked amidst sand dunes teeming with native gazelles and oryx.',
+                img: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1600&q=80'
+            },
+            'Dubai Marina & Superyacht Harbor': {
+                badge: 'Maritime Waterfront',
+                desc: 'Sail from private berths surrounded by futuristic high-rises. Enjoy waterfront dining, luxury yacht charters, and vibrant promenade promenades right at your doorstep.',
+                img: 'Dubai Marina & Superyacht Harbor.png'
+            },
+            'Al Fahidi Quarter & Dubai Creek': {
+                badge: 'Heritage & Culture',
+                desc: 'Discover old Dubai\'s cultural soul. Stroll through restored wind-tower alleys, art galleries, and private traditional abra crossings along the historic Dubai Creek.',
+                img: 'Al Fahidi Historical Neighbourhood.png'
+            }
+        };
+
+        function openModal(itemName) {
+            const data = destinationData[itemName] || {
+                badge: 'Private Concierge',
+                desc: 'Explore this exclusive offering designed to deliver uncompromising luxury.',
+                img: 'https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=1600&q=80'
+            };
+
+            modalTitle.textContent = itemName;
+            modalBadge.textContent = data.badge;
+            modalDesc.textContent = data.desc;
+            modalContainer.style.backgroundImage = `linear-gradient(to top, rgba(3,10,14,0.95) 10%, rgba(3,10,14,0.3) 60%, rgba(3,10,14,0.6) 100%), url('${data.img}')`;
+
+            // Hide package dropdown when opening a standard destination
+            packageSelectWrapper.style.display = 'none';
+
+            // Reset view
+            overviewView.classList.remove('hidden-view');
+            formView.classList.remove('active');
+            bottomActionBar.style.display = 'grid';
+
+            destModal.classList.add('active');
+        }
+
+        function openPackageInquiryModal() {
+            modalTitle.textContent = 'Signature Luxury Packages';
+            modalBadge.textContent = 'Tailored Offerings';
+            modalDesc.textContent = 'Select your preferred travel package below and our private concierge advisors will craft your bespoke itinerary.';
+            modalContainer.style.backgroundImage = `linear-gradient(to top, rgba(3,10,14,0.95) 10%, rgba(3,10,14,0.3) 60%, rgba(3,10,14,0.6) 100%), url('https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=1600&q=80')`;
+
+            // Show package dropdown when opened from packages section
+            packageSelectWrapper.style.display = 'block';
+
+            // Reset view
+            overviewView.classList.remove('hidden-view');
+            formView.classList.remove('active');
+            bottomActionBar.style.display = 'grid';
+
+            destModal.classList.add('active');
+        }
+
+        function toggleFormView(showForm) {
+            if (showForm) {
+                overviewView.classList.add('hidden-view');
+                bottomActionBar.style.display = 'none';
+                formView.classList.add('active');
+            } else {
+                formView.classList.remove('active');
+                overviewView.classList.remove('hidden-view');
+                bottomActionBar.style.display = 'grid';
+            }
+        }
+
+        function closeDestinationModal() {
+            destModal.classList.remove('active');
+        }
+
+        destModal.addEventListener('click', (e) => {
+            if (e.target === destModal) {
+                closeDestinationModal();
+            }
+        });
+    </script>
+    <script>
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzR2orZHQn_ufHpc7V69q3CHhfeMd0Qo5TrfDarV5HeVvkNqVkTQLSj2Y06dwoj-8sU/exec";
+
+    // Form 4: Destination Request
+    function submitDestinationRequest(selectedDestination, fullName, email, phone) {
+        const payload = {
+            formType: "destination_request",
+            selectedDestination: selectedDestination,
+            fullName: fullName,
+            email: email,
+            phone: phone
+        };
+
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            alert("Destination request submitted successfully!");
+        })
+        .catch(error => console.error("Error:", error));
+    }
+
+    // Form 5: Destination Package Request
+    function submitDestinationPackageRequest(selectedPackage, fullName, email, phone) {
+        const payload = {
+            formType: "destination_package_request",
+            selectedPackage: selectedPackage,
+            fullName: fullName,
+            email: email,
+            phone: phone
+        };
+
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            alert("Package request submitted successfully!");
+        })
+        .catch(error => console.error("Error:", error));
+    }
+</script>
+</body>
+</html>

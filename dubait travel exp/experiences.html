@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEYOND EXPERIENCE | Experiences & Excursions</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tealBg: '#0b3844',
+                        cardDark: '#092d37',
+                        goldAccent: '#D4AF37'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b3844;
+            color: #ffffff;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* --- BORDERLESS TRANSPARENT GLASS NAVBAR --- */
+        .glass-nav {
+            background: rgba(11, 56, 68, 0.15);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* --- SCROLL REVEAL STAGGER ANIMATIONS --- */
+        .reveal-group {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-group.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- CREATIVE GLOW BUTTON ANIMATION --- */
+        @keyframes goldGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.7); }
+        }
+        .animated-gold-btn {
+            animation: goldGlow 3s infinite ease-in-out;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .animated-gold-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.9);
+        }
+
+        /* --- CLEAN LUXURY IMAGE CARDS --- */
+        .experience-img-card {
+            position: relative;
+            height: 360px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .experience-img-card img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .experience-img-card:hover img {
+            transform: scale(1.08);
+        }
+
+        /* Clean Luxury Gradient Overlay (No Flashy Lines) */
+        .experience-img-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(9,45,55,0.95) 0%, rgba(9,45,55,0.45) 55%, rgba(9,45,55,0.1) 100%);
+            transition: background 0.4s ease;
+        }
+
+        .experience-img-card:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 10px 30px rgba(0,0,0,0.4);
+            transform: translateY(-6px);
+        }
+
+        /* Card Content Slide Up Animation */
+        .card-content-inner {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            z-index: 10;
+            transform: translateY(8px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .experience-img-card:hover .card-content-inner {
+            transform: translateY(0px);
+        }
+
+        .card-content-inner p {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+
+        .experience-img-card:hover .card-content-inner p {
+            max-height: 80px;
+            opacity: 1;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ========================================== -->
+    <!-- BORDERLESS TRANSPARENT GLASS NAVBAR -->
+    <!-- ========================================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 w-full px-8 md:px-16 py-3 grid grid-cols-3 items-center glass-nav">
+    <!-- Left: Logo -->
+    <div class="flex items-center justify-start">
+        <a href="index.html">
+            <img src="Beyond Experience logo(white).png" alt="Beyond Experience Logo" class="h-14 md:h-16 w-auto object-contain filter brightness-200" />
+        </a>
+    </div>
+
+    <!-- Center: Navigation Links -->
+    <nav class="hidden md:flex items-center justify-center space-x-8 lg:space-x-10 text-xs font-medium tracking-wide text-white/90 whitespace-nowrap">
+        <a href="index.html" class="hover:text-amber-200 transition cursor-pointer">Home</a>
+        <a href="about.html" class="hover:text-amber-200 transition cursor-pointer">About</a>
+        <a href="experiences.html" class="hover:text-amber-200 transition cursor-pointer">Experiences</a>
+        <a href="destinations.html" class="hover:text-amber-200 transition cursor-pointer">Destinations</a>
+        <a href="contactus.html" class="hover:text-amber-300 font-semibold transition cursor-pointer">Contact Us</a>
+    </nav>
+
+    <!-- Right: Empty Spacer to balance the grid -->
+    <div></div>
+</header>
+
+    <!-- ========================================== -->
+    <!-- HERO SECTION: EXPERIENCES -->
+    <!-- ========================================== -->
+    <section class="relative w-full h-[70vh] flex items-center justify-center text-center px-6 overflow-hidden bg-[#0b3844] pt-24">
+        <div class="absolute inset-0 bg-cover bg-center opacity-45" style="background-image: linear-gradient(to bottom, rgba(11, 56, 68, 0.6), rgba(11, 56, 68, 0.95)), url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2000&q=80');"></div>
+        
+        <div class="relative z-10 max-w-3xl mx-auto space-y-4 animate-fade-in">
+            <span class="text-xs uppercase tracking-[0.3em] text-amber-300 font-bold bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10">Bespoke Portfolio</span>
+            <h1 class="text-5xl md:text-7xl font-serif font-light tracking-tight text-white">
+                Curated Experiences
+            </h1>
+            <p class="text-white/80 text-sm md:text-base font-light max-w-xl mx-auto leading-relaxed">
+                Experience to aayega hi — explore elite private aviation, superyacht charters, and royal desert sanctuaries designed without compromise.
+            </p>
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- EXPERIENCES PORTFOLIO SECTION -->
+    <!-- ========================================== -->
+    <section class="relative w-full py-28 px-8 md:px-16 bg-[#0b3844] overflow-hidden">
+        <div class="max-w-7xl mx-auto space-y-36 relative z-10">
+            
+            <!-- Category 1: First Class Transportation Experience -->
+            <div class="space-y-10 reveal-group">
+                <div class="flex items-center space-x-4 border-l-2 border-[#D4AF37] pl-4">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37] font-bold block mb-1">Curated Offering 01</span>
+                        <h2 class="text-3xl md:text-4xl font-serif text-white">First Class Transportation Experience</h2>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Card 1 -->
+                    <div onclick="openModal('Luxury Chauffeur Services')" class="experience-img-card">
+                        <img src="Chaufferdes.jpeg" alt="Luxury Chauffeur Services">
+                        <div class="card-content-inner">
+                            <span class="text-[9px] uppercase tracking-widest text-amber-300 font-semibold mb-1 block">Transit</span>
+                            <h3 class="text-lg font-serif text-white">Luxury Chauffeur Services</h3>
+                            <p class="text-[11px] text-white/70 font-light leading-snug">Elite luxury vehicles with professional chauffeurs.</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div onclick="openModal('VIP Airport Transfers')" class="experience-img-card">
+                        <img src="AirportTransfer.png" alt="VIP Airport Transfers">
+                        <div class="card-content-inner">
+                            <span class="text-[9px] uppercase tracking-widest text-amber-300 font-semibold mb-1 block">Transit</span>
+                            <h3 class="text-lg font-serif text-white">VIP Airport Transfers</h3>
+                            <p class="text-[11px] text-white/70 font-light leading-snug">Seamless tarmac meet-and-greet services.</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div onclick="openModal('Luxury Car Rentals')" class="experience-img-card">
+                        <img src="RentalCar.png" alt="Luxury Car Rentals">
+                        <div class="card-content-inner">
+                            <span class="text-[9px] uppercase tracking-widest text-amber-300 font-semibold mb-1 block">Transit</span>
+                            <h3 class="text-lg font-serif text-white">Luxury Car Rentals</h3>
+                            <p class="text-[11px] text-white/70 font-light leading-snug">Drive world-class exotic supercars.</p>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div onclick="openModal('Private Aviation Arrangement')" class="experience-img-card">
+                        <img src="Aviation1.jpg" alt="Private Aviation Arrangement">
+                        <div class="card-content-inner">
+                            <span class="text-[9px] uppercase tracking-widest text-amber-300 font-semibold mb-1 block">Transit</span>
+                            <h3 class="text-lg font-serif text-white">Private Aviation Arrangement</h3>
+                            <p class="text-[11px] text-white/70 font-light leading-snug">Global Gulfstream and helicopter charters.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="openModal('First Class Transportation Package')" class="animated-gold-btn px-9 py-4 rounded-full bg-[#D4AF37] text-black font-semibold text-xs tracking-widest uppercase transition cursor-pointer shadow-xl">
+                        Inquire Transportation Services <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Category 2: Luxury Accommodation & Stays Experience -->
+            <div class="space-y-10 reveal-group">
+                <div class="flex items-center space-x-4 border-l-2 border-[#D4AF37] pl-4">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37] font-bold block mb-1">Curated Offering 02</span>
+                        <h2 class="text-3xl md:text-4xl font-serif text-white">Luxury Accommodation & Stays Experience</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div onclick="openModal('Private Villas & Luxury Resorts')" class="experience-img-card">
+                        <img src="luxurystaydes.jpeg" alt="Private Villas & Luxury Resorts">
+                        <div class="card-content-inner">
+                            <span class="text-[9px] uppercase tracking-widest text-amber-300 font-semibold mb-1 block">Residency</span>
+                            <h3 class="text-lg font-serif text-white">Private Villas & Luxury Resorts</h3>
+                            <p class="text-[11px] text-white/70 font-light leading-snug">Secluded coastal villas & resort hideaways.</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div onclick="openModal('Honeymoon & Romantic Stays')" class="experience-img-card">
+                        <img src="Romance.jpeg" alt="Honeymoon & Romantic Stays">
+                        <div class="card-content-inner">
+                            <span class="text-[9px] uppercase tracking-widest text-amber-300 font-semibold mb-1 block">Residency</span>
+                            <h3 class="text-lg font-serif text-white">Honeymoon & Romantic Stays</h3>
+                            <p class="text-[11px] text-white/70 font-light leading-snug">Bespoke intimate packages for couples.</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div onclick="openModal('5-Star Hotel Reservations')" class="experience-img-card">
+                        <img src="5star.png" alt="5-Star Hotel Reservations">
+                        <div class="card-content-inner">
+                            <span class="text-[9px] uppercase tracking-widest text-amber-300 font-semibold mb-1 block">Residency</span>
+                            <h3 class="text-lg font-serif text-white">5-Star Hotel Reservations</h3>
+                            <p class="text-[11px] text-white/70 font-light leading-snug">Priority bookings at iconic luxury hotels.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="openModal('Luxury Accommodation Package')" class="animated-gold-btn px-9 py-4 rounded-full bg-[#D4AF37] text-black font-semibold text-xs tracking-widest uppercase transition cursor-pointer shadow-xl">
+                        Inquire Accommodation Services <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Category 3: VIP Concierge Services Experience -->
+            <div class="space-y-10 reveal-group">
+                <div class="flex items-center space-x-4 border-l-2 border-[#D4AF37] pl-4">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37] font-bold block mb-1">Curated Offering 03</span>
+                        <h2 class="text-3xl md:text-4xl font-serif text-white">VIP Concierge Services Experience</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Card 1 -->
+                    <div onclick="openModal('Personal Travel Guide')" class="experience-img-card">
+                        <img src="personalguide.png" alt="Personal Travel Guide">
+                        <div class="card-content-inner">
+                            <span class="text-[9px] uppercase tracking-widest text-amber-300 font-semibold mb-1 block">Concierge</span>
+                            <h3 class="text-lg font-serif text-white">Personal Travel Guide</h3>
+                            <p class="text-[11px] text-white/70 font-light leading-snug">Dedicated guides for cultural discoveries.</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div onclick="openModal('Fine Dining Reservations')" class="experience-img-card">
+                        <img src="fine dining.jpeg" alt="Fine Dining Reservations">
+                        <div class="card-content-inner">
+                            <span class="text-[9px] uppercase tracking-widest text-amber-300 font-semibold mb-1 block">Concierge</span>
+                            <h3 class="text-lg font-serif text-white">Fine Dining Reservations</h3>
+                            <p class="text-[11px] text-white/70 font-light leading-snug">Guaranteed tables at Michelin venues.</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div onclick="openModal('Personal Shopping Assistant')" class="experience-img-card">
+                        <img src="shoppingdes.jpeg" alt="Personal Shopping Assistant">
+                        <div class="card-content-inner">
+                            <span class="text-[9px] uppercase tracking-widest text-amber-300 font-semibold mb-1 block">Concierge</span>
+                            <h3 class="text-lg font-serif text-white">Personal Shopping Assistant</h3>
+                            <p class="text-[11px] text-white/70 font-light leading-snug">Private salon access and styling.</p>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div onclick="openModal('Special Occasion Planning')" class="experience-img-card">
+                        <img src="Celebration.jpeg" alt="Special Occasion Planning">
+                        <div class="card-content-inner">
+                            <span class="text-[9px] uppercase tracking-widest text-amber-300 font-semibold mb-1 block">Concierge</span>
+                            <h3 class="text-lg font-serif text-white">Special Occasion Planning</h3>
+                            <p class="text-[11px] text-white/70 font-light leading-relaxed">Flawless execution of anniversaries & events.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="openModal('VIP Concierge Package')" class="animated-gold-btn px-9 py-4 rounded-full bg-[#D4AF37] text-black font-semibold text-xs tracking-widest uppercase transition cursor-pointer shadow-xl">
+                        Inquire Concierge Services <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Category 4: Exclusive Attraction & Activities Experience -->
+            <div class="space-y-10 reveal-group">
+                <div class="flex items-center space-x-4 border-l-2 border-[#D4AF37] pl-4">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37] font-bold block mb-1">Curated Offering 04</span>
+                        <h2 class="text-3xl md:text-4xl font-serif text-white">Exclusive Attraction & Activities Experience</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div onclick="openModal('Premium Attractions Experience')" class="experience-img-card">
+                        <img src="premiumattraction.png" alt="Premium Attractions Experience">
+                        <div class="card-content-inner">
+                            <span class="text-[9px] uppercase tracking-widest text-amber-300 font-semibold mb-1 block">Excursion</span>
+                            <h3 class="text-lg font-serif text-white">Premium Attractions Experience</h3>
+                            <p class="text-[11px] text-white/70 font-light leading-snug">VIP queue-free access to top viewpoints.</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div onclick="openModal('Golf & Leisure Experience')" class="experience-img-card">
+                        <img src="Golf.png" alt="Golf & Leisure Experience">
+                        <div class="card-content-inner">
+                            <span class="text-[9px] uppercase tracking-widest text-amber-300 font-semibold mb-1 block">Excursion</span>
+                            <h3 class="text-lg font-serif text-white">Golf & Leisure Experience</h3>
+                            <p class="text-[11px] text-white/70 font-light leading-snug">Championship golf courses & equipment.</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div onclick="openModal('Private Dining & Chef Experience')" class="experience-img-card">
+                        <img src="ChefExp.png" alt="Private Dining & Chef Experience">
+                        <div class="card-content-inner">
+                            <span class="text-[9px] uppercase tracking-widest text-amber-300 font-semibold mb-1 block">Excursion</span>
+                            <h3 class="text-lg font-serif text-white">Private Dining & Chef Experience</h3>
+                            <p class="text-[11px] text-white/70 font-light leading-snug">Private culinary masters at your residence.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="openModal('Exclusive Attraction Package')" class="animated-gold-btn px-9 py-4 rounded-full bg-[#D4AF37] text-black font-semibold text-xs tracking-widest uppercase transition cursor-pointer shadow-xl">
+                        Inquire Attraction Services <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- INQUIRY FORM POPUP MODAL -->
+    <!-- ========================================== -->
+    <div id="inquiry-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 px-4">
+        <div class="relative w-full max-w-lg bg-[#092d37] border border-white/20 p-8 md:p-10 rounded-3xl shadow-2xl transform scale-95 transition-transform duration-500" id="modal-content">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-white/70 hover:text-white text-xl cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <span class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-bold">Private Concierge</span>
+            <h3 id="modal-title" class="text-2xl font-serif text-white mt-1 mb-6">Begin Your Inquiry</h3>
+            
+            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Inquiry submitted successfully!'); closeModal();">
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-white/70 mb-2">Full Name</label>
+                    <input type="text" required placeholder="Enter your name" class="w-full px-4 py-3 bg-black/30 border border-white/20 text-white text-xs focus:outline-none focus:border-[#D4AF37] transition rounded-xl">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-white/70 mb-2">Email Address</label>
+                    <input type="email" required placeholder="Enter your email" class="w-full px-4 py-3 bg-black/30 border border-white/20 text-white text-xs focus:outline-none focus:border-[#D4AF37] transition rounded-xl">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-white/70 mb-2">Selected Experience</label>
+                    <input type="text" id="modal-experience-input" class="w-full px-4 py-3 bg-black/30 border border-white/20 text-white text-xs focus:outline-none focus:border-[#D4AF37] transition rounded-xl" readonly>
+                </div>
+                <button type="submit" class="w-full py-4 mt-4 bg-[#D4AF37] hover:bg-white text-black font-semibold text-xs tracking-widest uppercase transition rounded-xl cursor-pointer shadow-lg">
+                    Submit Request
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+   <!-- ========================================== -->
+    <!-- STYLISH ORGANIC WAVE FOOTER -->
+    <!-- ========================================== -->
+    <footer id="contact" class="relative bg-[#092d37] text-white overflow-hidden pt-0 z-30 mt-20">
+        <!-- Organic Wavy Divider -->
+        <div class="relative w-full overflow-hidden leading-none bg-[#0b3844]">
+            <svg class="relative block w-full h-[90px] md:h-[160px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 C150,130 350,-40 600,75 C850,190 1050,10 1200,50 L1200,120 L0,120 Z" fill="#092d37"></path>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-8 md:px-16 py-14 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 bg-[#092d37]">
+            <div class="space-y-4">
+                <img src="Beyond Experience logo(white).png" alt="Beyond Experience Logo" class="h-12 w-auto object-contain filter brightness-200" />
+                <p class="text-xs text-white/70 font-light leading-relaxed">
+                    Experience to aayega hi — Delivering extraordinary private getaways, luxury charters, and bespoke itineraries without compromise.
+                </p>
+                <div class="flex space-x-4 text-white text-sm pt-2">
+                    <a href="#" class="hover:text-amber-300 transition"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-amber-300 transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-amber-300 transition"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="hover:text-amber-300 transition"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-xs uppercase tracking-[0.25em] text-amber-300 font-bold mb-5">Services</h4>
+                <ul class="space-y-3 text-xs text-white/70 font-light">
+                    <li><a href="experiences.html?service=transportation" class="hover:text-amber-300 transition">First Class Transportation Experience</a></li>
+                    <li><a href="experiences.html?service=accommodation" class="hover:text-amber-300 transition">Luxury Accommodation & Stays Experience</a></li>
+                    <li><a href="experiences.html?service=concierge" class="hover:text-amber-300 transition">VIP Concierge Services Experience</a></li>
+                    <li><a href="experiences.html?service=activities" class="hover:text-amber-300 transition">Exclusive Attraction & Activities Experience</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs uppercase tracking-[0.25em] text-amber-300 font-bold mb-5">Quick Links</h4>
+                <ul class="space-y-3 text-xs text-white/70 font-light">
+                    <li><a href="about.html" class="hover:text-amber-300 transition">About Us</a></li>
+                    <li><a href="experiences.html" class="hover:text-amber-300 transition">Experiences</a></li>
+                    <li><a href="destinations.html" class="hover:text-amber-300 transition">Destinations</a></li>
+                    <li><a href="contactus.html" class="hover:text-amber-300 transition">Contact Concierge</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs uppercase tracking-[0.25em] text-amber-300 font-bold mb-5">Global Office</h4>
+                <p class="text-xs text-white/70 font-light leading-relaxed mb-4">
+                    510 Act Two Tower, Downtown Dubai, UAE
+                </p>
+                <p class="text-xs text-amber-300 font-medium">
+                    concierge@beyondexperience.com
+                </p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-8 md:px-16 py-6 flex flex-col md:flex-row items-center justify-between text-xs text-white/60 font-light bg-[#07222a]">
+            <p>&copy; 2026 BEYOND EXPERIENCE. All Rights Reserved. Experience to Aayega Hi.</p>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mt-4 md:mt-0">
+                <button onclick="openLegalModal('privacy')" class="hover:text-white transition cursor-pointer bg-transparent border-none text-xs text-white/60">Privacy Policy</button>
+                <button onclick="openLegalModal('terms')" class="hover:text-white transition cursor-pointer bg-transparent border-none text-xs text-white/60">Terms of Service</button>
+                <button onclick="openLegalModal('discretion')" class="hover:text-white transition cursor-pointer bg-transparent border-none text-xs text-white/60">Discretion Agreement</button>
+                <a href="https://clickormedia.com/" target="_blank" rel="noopener noreferrer" class="hover:text-amber-300 transition font-medium text-white/80">Crafted by Clickormedia</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LEGAL MODAL POP-UP OVERLAY -->
+    <div id="legalModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-[#092d37] border border-white/10 text-white w-11/12 max-w-2xl p-8 rounded-xl shadow-2xl relative transform scale-95 transition-transform duration-300" id="legalModalContainer">
+            <button onclick="closeLegalModal()" class="absolute top-4 right-4 text-white/60 hover:text-amber-300 text-xl font-bold cursor-pointer">&times;</button>
+            <h3 id="legalModalTitle" class="text-amber-300 text-lg uppercase tracking-wider font-semibold mb-4">Title</h3>
+            <div id="legalModalBody" class="text-xs text-white/80 font-light leading-relaxed max-h-[60vh] overflow-y-auto pr-2 space-y-3"></div>
+            <div class="mt-6 text-right">
+                <button onclick="closeLegalModal()" class="bg-amber-300 text-[#092d37] font-medium text-xs px-5 py-2 rounded transition hover:bg-amber-400 cursor-pointer">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL SCRIPT -->
+    <script>
+        const legalContent = {
+            privacy: {
+                title: "Privacy Policy",
+                content: "At Beyond Experience, we respect your privacy and protect your personal information with absolute discretion. We collect minimal data necessary to deliver world-class private charters, accommodations, and concierge services. Your information is never sold or shared with unauthorized third parties."
+            },
+            terms: {
+                title: "Terms of Service",
+                content: "By booking or utilizing services through Beyond Experience, you agree to our elite operational terms. All reservations, bespoke itineraries, and private leases are subject to availability, strict cancellation protocols, and our uncompromising standard of excellence."
+            },
+            discretion: {
+                title: "Discretion Agreement",
+                content: "Confidentiality is the cornerstone of our clientele relationship. All details concerning your private travels, itineraries, preferences, and identity remain strictly confidential and protected under our comprehensive zero-disclosure framework."
+            }
+        };
+
+        function openLegalModal(type) {
+            const modal = document.getElementById('legalModal');
+            const container = document.getElementById('legalModalContainer');
+            const title = document.getElementById('legalModalTitle');
+            const body = document.getElementById('legalModalBody');
+
+            title.innerText = legalContent[type].title;
+            body.innerText = legalContent[type].content;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                container.classList.remove('scale-95');
+                container.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeLegalModal() {
+            const modal = document.getElementById('legalModal');
+            const container = document.getElementById('legalModalContainer');
+
+            modal.classList.add('opacity-0');
+            container.classList.remove('scale-100');
+            container.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('legalModal');
+            if (event.target == modal) {
+                closeLegalModal();
+            }
+        }
+    </script>
+
+    <!-- ========================================== -->
+    <!-- INTERACTIVE ANIMATION JAVASCRIPT -->
+    <!-- ========================================== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal-group').forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        const inquiryModal = document.getElementById('inquiry-modal');
+        const modalContent = document.getElementById('modal-content');
+        const modalExperienceInput = document.getElementById('modal-experience-input');
+
+        function openModal(experienceName) {
+            modalExperienceInput.value = experienceName;
+            inquiryModal.classList.remove('opacity-0', 'pointer-events-none');
+            inquiryModal.classList.add('opacity-100', 'pointer-events-auto');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        }
+
+        function closeModal() {
+            inquiryModal.classList.remove('opacity-100', 'pointer-events-auto');
+            inquiryModal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+        }
+
+        inquiryModal.addEventListener('click', (e) => {
+            if (e.target === inquiryModal) {
+                closeModal();
+            }
+        });
+    </script>
+    <script>
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzR2orZHQn_ufHpc7V69q3CHhfeMd0Qo5TrfDarV5HeVvkNqVkTQLSj2Y06dwoj-8sU/exec";
+
+    // Form 3: Experience Package Inquiry Modal
+    function submitExperienceInquiry(fullName, email, selectedExperience) {
+        const payload = {
+            formType: "experience_inquiry",
+            fullName: fullName,
+            email: email,
+            selectedExperience: selectedExperience
+        };
+
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            alert("Inquiry submitted successfully!");
+        })
+        .catch(error => console.error("Error:", error));
+    }
+</script>
+</body>
+</html>
