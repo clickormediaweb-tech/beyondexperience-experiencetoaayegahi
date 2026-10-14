@@ -335,28 +335,51 @@
     <!-- ========================================== -->
     <!-- SECTION 1: HERO SCREEN -->
     <!-- ========================================== -->
-<section id="home" class="relative w-full min-h-screen flex flex-col justify-between bg-[#0b3844] pt-24 pb-20">        <!-- Background Layers spanning the full hero width -->
-       <section id="home" class="relative w-full min-h-screen flex flex-col justify-between bg-[#0b3844] pt-24 pb-20">
-    <div id="bg-layer-1" class="bg-layer active" style="background-image: url('Dubai Marina.png');"></div>
-    <div id="bg-layer-2" class="bg-layer" style="background-image: url('Dubai Marina.png');"></div>
-    <div class="bg-gradient-mask"></div>
-    <!-- Rest of your hero content... -->
+    <section id="home" class="relative w-full min-h-screen flex flex-col justify-between bg-[#0b3844] pt-28 pb-20 overflow-hidden">
+        
+        <!-- Background Layers with Cinematic Zoom & Cross-Fade -->
+        <div id="bg-layer-1" class="bg-layer active" style="background-image: url('Dubai Marina.png');"></div>
+        <div id="bg-layer-2" class="bg-layer" style="background-image: url('Dubai Marina.png');"></div>
+        <div class="bg-gradient-mask"></div>
 
+        <!-- Hero Main Content -->
         <div class="relative z-20 w-full max-w-7xl mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-auto py-12">
-            <div id="hero-text-content" class="lg:col-span-7 flex flex-col justify-center space-y-6 animate-fade-in">
+            <div id="hero-text-content" class="lg:col-span-8 flex flex-col justify-center space-y-6 hero-text-animate">
+                
+                <!-- Tagline / Subtitle -->
+                <span class="text-xs uppercase tracking-[0.35em] text-[#D4AF37] font-semibold opacity-90">
+                    Beyond Experience &bull; Experience to Ayega Hi
+                </span>
+
+                <!-- Main Heading -->
                 <div class="space-y-0">
-                    <h1 class="text-6xl sm:text-7xl font-bold tracking-tight text-white leading-[1.05]">
-                        Explore <br><span class="font-light text-white/90">Our Destinations</span>
+                    <h1 class="text-4xl sm:text-6xl font-bold tracking-tight text-white leading-[1.1]">
+                        Experience Dubai <br><span class="font-light text-white/90">through private journeys</span>
                     </h1>
                 </div>
-                <p class="text-white/80 text-sm max-w-md font-light leading-relaxed">
-                    Experience to aayega hi — discover extraordinary getaways, private luxury excursions, and bespoke itineraries crafted without compromise.
+
+                <!-- Description Paragraph -->
+                <p class="text-white/80 text-sm max-w-xl font-light leading-relaxed">
+                    Experience Dubai through private journeys, exceptional stays, first-class transportation and bespoke concierge services.
                 </p>
-                <div class="pt-2">
-                    <button class="px-7 py-3 rounded-none border border-white/40 text-white hover:bg-white hover:text-black font-medium text-xs tracking-wide transition-all duration-300 cursor-pointer">
-                        Book Now <i class="fa-solid fa-chevron-right ml-1 text-[9px]"></i>
-                    </button>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                    <a href="experiences.html" class="px-7 py-3.5 rounded-xl bg-[#D4AF37] hover:bg-[#e6c152] text-black font-semibold text-xs tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_10px_25px_rgba(212,175,55,0.4)] cursor-pointer hover:scale-105">
+                        Explore Experiences
+                    </a>
+                    <a href="destinations.html" class="px-7 py-3.5 rounded-xl border border-white/40 text-white hover:bg-white hover:text-black font-medium text-xs tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer hover:scale-105">
+                        Plan Your Journey
+                    </a>
                 </div>
+
+                <!-- Small Feature Line -->
+                <div class="pt-3">
+                    <p class="text-[11px] text-[#D4AF37]/90 tracking-[0.15em] uppercase font-medium">
+                        Private Experiences &bull; Luxury Stays &bull; Chauffeur &bull; Concierge
+                    </p>
+                </div>
+
             </div>
         </div>
 
@@ -367,7 +390,8 @@
             </div>
         </div>
 
-        <div class="relative z-30 w-full px-8 md:px-16 py-6 flex items-center justify-between">
+        <!-- Hero Footer Controls (Socials & Carousel Nav) -->
+        <div class="relative z-30 w-full px-8 md:px-16 py-4 flex items-center justify-between">
             <div class="flex items-center space-x-6 text-white/80 text-xs">
                 <a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
                 <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
@@ -393,6 +417,97 @@
             </div>
         </div>
     </section>
+
+    <!-- ========================================== -->
+    <!-- BOOKING & DESTINATION QUICK-BAR WIDGET -->
+    <!-- ========================================== -->
+    <div class="relative z-50 max-w-6xl mx-auto px-6 w-full -translate-y-1/2">
+        <div class="bg-[#092d37]/95 backdrop-blur-xl border border-[#D4AF37]/30 p-6 md:p-8 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.8)] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-center">
+            
+            <!-- Destinations Field -->
+            <div class="flex flex-col space-y-1.5">
+                <label class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-semibold">Destinations</label>
+                <div class="flex items-center space-x-2 bg-black/40 border border-white/20 rounded-xl px-4 py-3 text-white text-xs">
+                    <i class="fa-solid fa-location-dot text-[#D4AF37] text-xs"></i>
+                    <input type="text" id="quick-destination" placeholder="Dubai Marina, Palm..." class="bg-transparent focus:outline-none w-full text-white placeholder-white/40 text-xs">
+                </div>
+            </div>
+
+            <!-- Check-in Date -->
+            <div class="flex flex-col space-y-1.5">
+                <label class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-semibold">Check-in date</label>
+                <div class="flex items-center space-x-2 bg-black/40 border border-white/20 rounded-xl px-4 py-3 text-white text-xs">
+                    <i class="fa-regular fa-calendar text-[#D4AF37] text-xs"></i>
+                    <input type="date" id="quick-checkin" class="bg-transparent focus:outline-none w-full text-white text-xs cursor-pointer [color-scheme:dark]">
+                </div>
+            </div>
+
+            <!-- Check-out Date -->
+            <div class="flex flex-col space-y-1.5">
+                <label class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-semibold">Check-out date</label>
+                <div class="flex items-center space-x-2 bg-black/40 border border-white/20 rounded-xl px-4 py-3 text-white text-xs">
+                    <i class="fa-regular fa-calendar-check text-[#D4AF37] text-xs"></i>
+                    <input type="date" id="quick-checkout" class="bg-transparent focus:outline-none w-full text-white text-xs cursor-pointer [color-scheme:dark]">
+                </div>
+            </div>
+
+            <!-- Number of Guests -->
+            <div class="flex flex-col space-y-1.5">
+                <label class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-semibold">Number of Guests</label>
+                <div class="flex items-center space-x-2 bg-black/40 border border-white/20 rounded-xl px-4 py-3 text-white text-xs">
+                    <i class="fa-solid fa-users text-[#D4AF37] text-xs"></i>
+                    <input type="number" id="quick-guests" min="1" value="2" class="bg-transparent focus:outline-none w-full text-white text-xs">
+                </div>
+            </div>
+
+            <!-- Book Now Button -->
+            <div class="flex flex-col justify-end pt-5 sm:pt-0">
+                <button type="button" id="quick-book-btn" class="w-full py-3.5 bg-[#D4AF37] hover:bg-[#e6c152] text-black font-semibold text-xs tracking-[0.2em] uppercase rounded-xl transition-all duration-300 shadow-[0_10px_25px_rgba(212,175,55,0.4)] hover:shadow-[0_15px_30px_rgba(212,175,55,0.6)] cursor-pointer flex items-center justify-center space-x-2">
+                    <span>BOOK NOW</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Upgraded Cinematic Animation CSS -->
+    <style>
+        .bg-layer {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transform: scale(1);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1;
+        }
+        .bg-layer.active {
+            opacity: 1;
+            transform: scale(1.06);
+        }
+
+        @keyframes textSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-text-animate > * {
+            animation: textSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .hero-text-animate > *:nth-child(1) { animation-delay: 0.1s; }
+        .hero-text-animate > *:nth-child(2) { animation-delay: 0.25s; }
+        .hero-text-animate > *:nth-child(3) { animation-delay: 0.4s; }
+        .hero-text-animate > *:nth-child(4) { animation-delay: 0.55s; }
+        .hero-text-animate > *:nth-child(5) { animation-delay: 0.7s; }
+    </style>
 
     <!-- ========================================== -->
     <!-- BOOKING & DESTINATION QUICK-BAR WIDGET -->
