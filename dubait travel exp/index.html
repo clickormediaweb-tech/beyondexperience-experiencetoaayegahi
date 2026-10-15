@@ -390,11 +390,13 @@
         <!-- Full-Screen Background Cross-Fade Layers -->
         <div id="bg-layer-1" class="hero-bg-layer active" style="background-image: url('Dubai Marina.png');"></div>
         <div id="bg-layer-2" class="hero-bg-layer" style="background-image: url('Dubai Marina.png');"></div>
-        <div class="hero-clean-mask"></div>
+        
+        <!-- Full screen subtle dark tint for text readability -->
+        <div class="absolute inset-0 bg-black/40 z-20 pointer-events-none"></div>
 
-        <!-- Left-Side Content with Your Requested Text & Buttons -->
-        <div class="relative z-25 w-full max-w-7xl mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-auto py-12">
-            <div id="hero-text-content" class="lg:col-span-7 flex flex-col justify-center space-y-6 animate-fade-in">
+        <!-- Centered Content -->
+        <div class="relative z-25 w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center justify-center text-center my-auto py-12">
+            <div id="hero-text-content" class="flex flex-col items-center space-y-6 animate-fade-in">
                 
                 <!-- Small Tagline Line -->
                 <span class="text-[10px] md:text-xs uppercase tracking-[0.25em] text-[#D4AF37] font-semibold">
@@ -402,17 +404,17 @@
                 </span>
 
                 <div class="space-y-0">
-                    <h1 class="text-4xl sm:text-6xl font-bold tracking-tight text-white leading-[1.05]">
+                    <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-[1.05]">
                         Beyond Experience <br><span class="font-light text-white/90">Experience to Aayega Hi</span>
                     </h1>
                 </div>
 
-                <p class="text-white/80 text-xs md:text-sm max-w-lg font-light leading-relaxed">
+                <p class="text-white/80 text-xs md:text-sm max-w-2xl font-light leading-relaxed">
                     Experience Dubai through private journeys, exceptional stays, first-class transportation and bespoke concierge services.
                 </p>
 
                 <!-- Dual Action Buttons -->
-                <div class="pt-2 flex flex-wrap items-center gap-4">
+                <div class="pt-2 flex flex-wrap items-center justify-center gap-4">
                     <a href="experiences.html" class="px-7 py-3.5 bg-[#D4AF37] hover:bg-[#e6c152] text-black font-semibold text-xs tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer shadow-lg inline-flex items-center space-x-2">
                         <span>Explore Experiences</span>
                         <i class="fa-solid fa-arrow-right text-[10px]"></i>
@@ -426,13 +428,7 @@
             </div>
         </div>
 
-        <!-- Right-Side Confined Carousel Track Deck -->
-        <div id="destinations-deck" class="destinations-deck" style="z-index: 30;">
-            <div id="dest-card-track" class="dest-card-track">
-                <!-- Dynamically populated carousel cards -->
-            </div>
-        </div>
-
+        <!-- Bottom Controls / Socials Bar -->
         <div class="relative z-30 w-full px-8 md:px-16 py-6 flex items-center justify-between">
             <div class="flex items-center space-x-6 text-white/80 text-xs">
                 <a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
@@ -1407,38 +1403,7 @@ let autoSlideInterval = null;
 
 const layer1 = document.getElementById('bg-layer-1');
 const layer2 = document.getElementById('bg-layer-2');
-const cardTrack = document.getElementById('dest-card-track');
 const dots = document.querySelectorAll('.dot-indicator');
-
-function renderTrack() {
-    if (!cardTrack) return;
-    cardTrack.innerHTML = '';
-    
-    destinations.forEach((dest, idx) => {
-        const cardDiv = document.createElement('div');
-        const isFeatured = (idx === 0);
-        cardDiv.className = `dest-card-item ${isFeatured ? 'featured-card' : ''}`;
-        cardDiv.innerHTML = `
-            <img src="${dest.img}" alt="${dest.title}">
-            <div class="card-overlay">
-                <span class="text-[9px] uppercase tracking-widest text-amber-300 font-bold">${dest.tag}</span>
-                <h4 class="text-xs font-serif text-white mt-1">${dest.title}</h4>
-            </div>
-        `;
-        cardDiv.addEventListener('click', () => {
-            if (idx !== 0) {
-                clearInterval(autoSlideInterval);
-                for (let i = 0; i < idx; i++) {
-                    destinations.push(destinations.shift());
-                }
-                updateSlide();
-                startAutoSlide();
-            }
-        });
-        cardTrack.appendChild(cardDiv);
-    });
-    cardTrack.style.transform = `translateX(0px)`;
-}
 
 function updateSlide() {
     const currentDest = destinations[0];
@@ -1464,8 +1429,6 @@ function updateSlide() {
             dot.classList.add('w-1.5', 'bg-white/40');
         }
     });
-
-    renderTrack();
 }
 
 function nextSlide() {
@@ -1504,7 +1467,6 @@ dots.forEach((dot, i) => {
     });
 });
 
-renderTrack();
 updateSlide();
 startAutoSlide();
 
