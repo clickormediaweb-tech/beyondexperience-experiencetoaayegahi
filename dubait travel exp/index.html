@@ -107,39 +107,10 @@
         }
 
 /* --- CIRCULAR REVEAL HERO TRANSITION STYLES --- */
-.hero-right-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 55%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 1;
-    pointer-events: none;
-}
 
-.hero-bg-base {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    z-index: 1;
-}
 
-/* Expanding Circular Clip-Path Reveal Layer */
-.hero-circular-reveal {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    z-index: 2;
-    clip-path: circle(0% at 50% 50%);
-    transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
-}
 
-.hero-circular-reveal.revealed {
-    clip-path: circle(150% at 50% 50%);
-}
+
 
 /* Layered Concentric Rings inspired by reference motion */
 .hero-transition-ring {
@@ -179,40 +150,11 @@
     pointer-events: none;
 }
 
-/* Optional soft curved wave divider between left content and right visual */
-.hero-right-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 60%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 1;
-    pointer-events: none;
-    clip-path: ellipse(120% 100% at 90% 50%);
-}
 
-.hero-bg-base {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    z-index: 1;
-}
 
-.hero-circular-reveal {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    z-index: 2;
-    clip-path: circle(0% at 50% 50%);
-    transition: clip-path 1.4s cubic-bezier(0.77, 0, 0.175, 1);
-}
 
-.hero-circular-reveal.revealed {
-    clip-path: circle(160% at 50% 50%);
-}
+
+
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
@@ -367,6 +309,30 @@
             justify-content: flex-end;
             padding: 0.75rem;
         }
+
+        /* --- FULL-SCREEN IMMERSIVE HERO BACKGROUND LAYERS --- */
+.hero-bg-layer {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+    z-index: 1;
+}
+
+.hero-bg-layer.active {
+    opacity: 1;
+}
+
+/* Smooth gradient overlay that keeps text perfectly readable on the left */
+.hero-clean-mask {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #0b3844 40%, rgba(11, 56, 68, 0.75) 65%, rgba(11, 56, 68, 0.3) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
     </style>
 </head>
 <body class="antialiased">
@@ -421,16 +387,13 @@
     <!-- ========================================== -->
     <section id="home" class="relative w-full min-h-screen flex flex-col justify-between bg-[#0b3844] pt-24 pb-20 overflow-hidden">
         
-        <!-- Right-Side Confined Visual Area with Curvy Organic Edge -->
-        <div class="hero-right-container">
-            <div id="hero-base-img" class="hero-bg-base" style="background-image: url('Dubai Marina.png');"></div>
-            <div id="hero-reveal-img" class="hero-circular-reveal" style="background-image: url('Burj Khalifa.png');"></div>
-        </div>
+        <!-- Full-Screen Background Cross-Fade Layers -->
+        <div id="bg-layer-1" class="hero-bg-layer active" style="background-image: url('Dubai Marina.png');"></div>
+        <div id="bg-layer-2" class="hero-bg-layer" style="background-image: url('Dubai Marina.png');"></div>
+        <div class="hero-clean-mask"></div>
 
-        <div class="bg-gradient-mask"></div>
-
-        <!-- Left-Side Content with Updated Text and Buttons -->
-        <div class="relative z-20 w-full max-w-7xl mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-auto py-12">
+        <!-- Left-Side Content with Your Requested Text & Buttons -->
+        <div class="relative z-25 w-full max-w-7xl mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-auto py-12">
             <div id="hero-text-content" class="lg:col-span-7 flex flex-col justify-center space-y-6 animate-fade-in">
                 
                 <!-- Small Tagline Line -->
@@ -464,7 +427,7 @@
         </div>
 
         <!-- Right-Side Confined Carousel Track Deck -->
-        <div id="destinations-deck" class="destinations-deck">
+        <div id="destinations-deck" class="destinations-deck" style="z-index: 30;">
             <div id="dest-card-track" class="dest-card-track">
                 <!-- Dynamically populated carousel cards -->
             </div>
@@ -1439,7 +1402,11 @@ let destinations = [
     { title: "Atlantis The Royal", tag: "Palm Jumeirah", img: "atlanta.png" }
 ];
 
+let activeLayer = 1;
 let autoSlideInterval = null;
+
+const layer1 = document.getElementById('bg-layer-1');
+const layer2 = document.getElementById('bg-layer-2');
 const cardTrack = document.getElementById('dest-card-track');
 const dots = document.querySelectorAll('.dot-indicator');
 
@@ -1474,13 +1441,20 @@ function renderTrack() {
 }
 
 function updateSlide() {
-    const nextDest = destinations[0];
+    const currentDest = destinations[0];
 
-    // Set incoming image into the circular reveal layer
-    revealImgEl.style.backgroundImage = `url('${nextDest.img}')`;
-    revealImgEl.classList.add('revealed');
+    if (activeLayer === 1) {
+        layer2.style.backgroundImage = `url('${currentDest.img}')`;
+        layer2.classList.add('active');
+        layer1.classList.remove('active');
+        activeLayer = 2;
+    } else {
+        layer1.style.backgroundImage = `url('${currentDest.img}')`;
+        layer1.classList.add('active');
+        layer2.classList.remove('active');
+        activeLayer = 1;
+    }
 
-    // Update dot indicators
     dots.forEach((dot, idx) => {
         if (idx === 0) {
             dot.classList.add('w-6', 'bg-white');
@@ -1490,13 +1464,6 @@ function updateSlide() {
             dot.classList.add('w-1.5', 'bg-white/40');
         }
     });
-
-    // After animation completes, reset layers seamlessly
-    setTimeout(() => {
-        baseImgEl.style.backgroundImage = `url('${nextDest.img}')`;
-        revealImgEl.classList.remove('revealed');
-        revealImgEl.style.clipPath = 'circle(0% at 50% 50%)';
-    }, 1400);
 
     renderTrack();
 }
@@ -1520,7 +1487,7 @@ function startAutoSlide() {
     autoSlideInterval = setInterval(() => {
         destinations.push(destinations.shift());
         updateSlide();
-    }, 4500); // Automatically triggers every 4.5 seconds
+    }, 4500);
 }
 
 document.getElementById('next-btn').addEventListener('click', nextSlide);
@@ -1538,6 +1505,7 @@ dots.forEach((dot, i) => {
 });
 
 renderTrack();
+updateSlide();
 startAutoSlide();
 
         const eliteVideo = document.getElementById('elite-video');
