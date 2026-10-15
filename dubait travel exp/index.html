@@ -106,11 +106,6 @@
             background: rgba(212, 175, 55, 0.8);
         }
 
-/* --- CIRCULAR REVEAL HERO TRANSITION STYLES --- */
-
-
-
-
 
 /* Layered Concentric Rings inspired by reference motion */
 .hero-transition-ring {
@@ -310,34 +305,48 @@
             padding: 0.75rem;
         }
 
-        /* --- FULL-SCREEN IMMERSIVE HERO BACKGROUND LAYERS --- */
+       /* --- FULL-SCREEN CINEMATIC KEN BURNS HERO STYLES --- */
+.hero-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #0b3844;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .hero-bg-layer {
     position: absolute;
     inset: 0;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center;
     opacity: 0;
-    transition: opacity 1.2s ease-in-out;
+    transform: scale(1);
+    transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), transform 6s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 1;
 }
 
 .hero-bg-layer.active {
     opacity: 1;
+    transform: scale(1.08); /* Dramatic slow zoom animation */
 }
 
-/* Smooth gradient overlay that keeps text perfectly readable on the left */
-.hero-clean-mask {
+/* Rich cinematic vignette overlay to make text pop while keeping background immersive */
+.hero-vignette {
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, #0b3844 40%, rgba(11, 56, 68, 0.75) 65%, rgba(11, 56, 68, 0.3) 100%);
+    background: radial-gradient(circle at center, rgba(11, 56, 68, 0.4) 0%, rgba(7, 34, 42, 0.8) 70%, rgba(3, 15, 18, 0.95) 100%);
     z-index: 2;
     pointer-events: none;
 }
-        /* --- FIXED CENTERED HERO CONTENT --- */
+
 .hero-content-box {
     position: relative;
-    z-index: 30; /* Stays firmly above the background layers */
-    opacity: 1 !important;
+    z-index: 30;
 }
     </style>
 </head>
@@ -389,18 +398,18 @@
 </header>
 
   <!-- ========================================== -->
-    <!-- SECTION 1: HERO SCREEN -->
+    <!-- SECTION 1: HERO SCREEN (FULL SCREEN & CENTERED) -->
     <!-- ========================================== -->
-    <section id="home" class="relative w-full min-h-screen flex flex-col justify-between bg-[#0b3844] pt-24 pb-20 overflow-hidden">
+    <section id="home" class="hero-container pt-24 pb-20">
         
-        <!-- Full-Screen Background Cross-Fade Layers (Z-index 1 & 2) -->
+        <!-- Full-Screen Background Cross-Fade Layers with Zoom Animation -->
         <div id="bg-layer-1" class="hero-bg-layer active" style="background-image: url('Dubai Marina.png');"></div>
         <div id="bg-layer-2" class="hero-bg-layer" style="background-image: url('Dubai Marina.png');"></div>
-        <div class="absolute inset-0 bg-black/40 z-10 pointer-events-none"></div>
+        <div class="hero-vignette"></div>
 
-        <!-- Centered Text & Buttons (Completely fixed, no fading) -->
+        <!-- Centered Fixed Text & Buttons -->
         <div class="relative w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center justify-center text-center my-auto py-12 hero-content-box">
-            <div class="flex flex-col items-center space-y-6">
+            <div class="flex flex-col items-center space-y-6 animate-fade-in">
                 
                 <!-- Small Tagline Line -->
                 <span class="text-[10px] md:text-xs uppercase tracking-[0.25em] text-[#D4AF37] font-semibold">
@@ -1454,7 +1463,7 @@ function startAutoSlide() {
     autoSlideInterval = setInterval(() => {
         destinations.push(destinations.shift());
         updateSlide();
-    }, 4500);
+    }, 5000);
 }
 
 document.getElementById('next-btn').addEventListener('click', nextSlide);
