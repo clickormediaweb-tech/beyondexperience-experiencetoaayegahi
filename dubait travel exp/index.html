@@ -106,29 +106,40 @@
             background: rgba(212, 175, 55, 0.8);
         }
 
-       /* --- CLEAN CINEMATIC BACKGROUND LAYERS --- */
-/* --- CLEAN CINEMATIC BACKGROUND LAYERS --- */
-.bg-layer {
+/* --- CINEMATIC IMMERSIVE HERO STYLES --- */
+.hero-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #0b3844;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Immersive background layer with smooth Ken Burns scale & fade */
+.hero-bg-layer {
     position: absolute;
     inset: 0;
     background-size: cover;
     background-position: center;
     opacity: 0;
-    transform: scale(1);
-    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: scale(1.03);
+    transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), transform 6s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 1;
 }
 
-.bg-layer.active {
+.hero-bg-layer.active {
     opacity: 1;
-    transform: scale(1.05); /* Smooth cinematic slow zoom */
+    transform: scale(1.08); /* Slow dramatic zoom effect */
 }
 
-/* Seamless gradient mask that eliminates any center lighting seam */
-.bg-gradient-mask {
+/* Radical radial gradient mask to remove any vertical center split lines */
+.hero-vignette-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, #0b3844 20%, rgba(11, 56, 68, 0.85) 45%, rgba(11, 56, 68, 0.35) 80%, rgba(11, 56, 68, 0.15) 100%);
+    background: radial-gradient(circle at 35% 50%, rgba(11, 56, 68, 0.85) 0%, rgba(9, 45, 55, 0.7) 50%, rgba(3, 15, 18, 0.92) 100%);
     z-index: 2;
     pointer-events: none;
 }
@@ -337,27 +348,31 @@
 </header>
 
     <!-- ========================================== -->
-    <!-- SECTION 1: HERO SCREEN -->
+    <!-- SECTION 1: HERO SCREEN (REDESIGNED) -->
     <!-- ========================================== -->
-    <section id="home" class="relative w-full min-h-screen flex flex-col justify-between bg-[#0b3844] pt-24 pb-20 overflow-hidden">
+    <section id="home" class="hero-container pt-24 pb-20">
         <!-- Background Cross-Fade Layers -->
-        <div id="bg-layer-1" class="bg-layer active" style="background-image: url('Dubai Marina.png');"></div>
-        <div id="bg-layer-2" class="bg-layer" style="background-image: url('Dubai Marina.png');"></div>
-        <div class="bg-gradient-mask"></div>
+        <div id="bg-layer-1" class="hero-bg-layer active" style="background-image: url('Dubai Marina.png');"></div>
+        <div id="bg-layer-2" class="hero-bg-layer" style="background-image: url('Dubai Marina.png');"></div>
+        <div class="hero-vignette-overlay"></div>
 
         <div class="relative z-20 w-full max-w-7xl mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-auto py-12">
-            <div id="hero-text-content" class="lg:col-span-7 flex flex-col justify-center space-y-6 animate-fade-in">
-                <div class="space-y-0">
-                    <h1 class="text-6xl sm:text-7xl font-bold tracking-tight text-white leading-[1.05]">
+            <div id="hero-text-content" class="lg:col-span-8 flex flex-col justify-center space-y-6 animate-fade-in">
+                <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/15 w-max">
+                    <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37] font-semibold">Bespoke Dubai Experiences</span>
+                </div>
+                <div class="space-y-1">
+                    <h1 class="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[1.02]">
                         Explore <br><span class="font-light text-white/90">Our Destinations</span>
                     </h1>
                 </div>
-                <p class="text-white/80 text-sm max-w-md font-light leading-relaxed">
+                <p class="text-white/80 text-sm md:text-base max-w-lg font-light leading-relaxed">
                     Experience to aayega hi — discover extraordinary getaways, private luxury excursions, and bespoke itineraries crafted without compromise.
                 </p>
-                <div class="pt-2">
-                    <button class="px-7 py-3 rounded-none border border-white/40 text-white hover:bg-white hover:text-black font-medium text-xs tracking-wide transition-all duration-300 cursor-pointer">
-                        Book Now <i class="fa-solid fa-chevron-right ml-1 text-[9px]"></i>
+                <div class="pt-3 flex items-center space-x-4">
+                    <button class="px-8 py-4 rounded-xl bg-[#D4AF37] text-black hover:bg-[#e6c152] font-semibold text-xs tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_10px_30px_rgba(212,175,55,0.4)] cursor-pointer">
+                        Secure Your Journey <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
                     </button>
                 </div>
             </div>
@@ -380,16 +395,16 @@
 
             <div class="flex items-center space-x-6">
                 <div class="flex items-center space-x-2">
-                    <span class="dot-indicator w-6 h-1.5 bg-white transition-all duration-300" data-index="0"></span>
+                    <span class="dot-indicator w-6 h-1.5 bg-[#D4AF37] transition-all duration-300" data-index="0"></span>
                     <span class="dot-indicator w-1.5 h-1.5 bg-white/40 transition-all duration-300" data-index="1"></span>
                     <span class="dot-indicator w-1.5 h-1.5 bg-white/40 transition-all duration-300" data-index="2"></span>
                     <span class="dot-indicator w-1.5 h-1.5 bg-white/40 transition-all duration-300" data-index="3"></span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <button id="prev-btn" class="w-10 h-10 bg-black/40 hover:bg-black/70 text-white flex items-center justify-center transition cursor-pointer rounded-none">
+                    <button id="prev-btn" class="w-10 h-10 bg-black/50 border border-white/20 hover:bg-black/80 text-white flex items-center justify-center transition cursor-pointer rounded-xl">
                         <i class="fa-solid fa-arrow-left text-xs"></i>
                     </button>
-                    <button id="next-btn" class="w-10 h-10 bg-white text-black hover:bg-gray-200 flex items-center justify-center transition cursor-pointer rounded-none">
+                    <button id="next-btn" class="w-10 h-10 bg-[#D4AF37] text-black hover:bg-[#e6c152] flex items-center justify-center transition cursor-pointer rounded-xl shadow-lg">
                         <i class="fa-solid fa-arrow-right text-xs"></i>
                     </button>
                 </div>
