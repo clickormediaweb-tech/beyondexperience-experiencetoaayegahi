@@ -118,28 +118,56 @@
     justify-content: space-between;
 }
 
-/* Immersive background layer with smooth Ken Burns scale & fade */
-.hero-bg-layer {
+/* --- CINEMATIC SLIDER HERO STYLES --- */
+.hero-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #030d12;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Slider Track container holding all background slides */
+.hero-slider-track {
     position: absolute;
     inset: 0;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transform: scale(1.03);
-    transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), transform 6s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
     z-index: 1;
 }
 
-.hero-bg-layer.active {
-    opacity: 1;
-    transform: scale(1.08); /* Slow dramatic zoom effect */
+.hero-slide {
+    position: relative;
+    min-width: 100vw;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
 }
 
-/* Radical radial gradient mask to remove any vertical center split lines */
-.hero-vignette-overlay {
+/* Ken Burns slow zoom effect for active slides */
+.hero-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transition: transform 6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-slide.active img {
+    transform: scale(1.08);
+}
+
+/* Deep cinematic gradient overlay ensuring seamless text legibility without split lines */
+.hero-cinematic-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 35% 50%, rgba(11, 56, 68, 0.85) 0%, rgba(9, 45, 55, 0.7) 50%, rgba(3, 15, 18, 0.92) 100%);
+    background: linear-gradient(90deg, #07222a 15%, rgba(7, 34, 42, 0.85) 45%, rgba(11, 56, 68, 0.4) 80%, rgba(11, 56, 68, 0.2) 100%),
+                linear-gradient(to top, #0b3844 0%, transparent 40%);
     z-index: 2;
     pointer-events: none;
 }
@@ -348,13 +376,18 @@
 </header>
 
     <!-- ========================================== -->
-    <!-- SECTION 1: HERO SCREEN (REDESIGNED) -->
+    <!-- SECTION 1: HERO SCREEN (CINEMATIC SLIDER) -->
     <!-- ========================================== -->
     <section id="home" class="hero-container pt-24 pb-20">
-        <!-- Background Cross-Fade Layers -->
-        <div id="bg-layer-1" class="hero-bg-layer active" style="background-image: url('Dubai Marina.png');"></div>
-        <div id="bg-layer-2" class="hero-bg-layer" style="background-image: url('Dubai Marina.png');"></div>
-        <div class="hero-vignette-overlay"></div>
+        <!-- Horizontal Sliding Background Track -->
+        <div id="hero-slider-track" class="hero-slider-track">
+            <!-- Dynamically populated or static clean slide elements -->
+            <div class="hero-slide active"><img src="Dubai Marina.png" alt="Dubai Marina"></div>
+            <div class="hero-slide"><img src="Burj Khalifa.png" alt="Burj Khalifa"></div>
+            <div class="hero-slide"><img src="Burj Al Arab.png" alt="Burj Al Arab"></div>
+            <div class="hero-slide"><img src="atlanta.png" alt="Atlantis The Royal"></div>
+        </div>
+        <div class="hero-cinematic-overlay"></div>
 
         <div class="relative z-20 w-full max-w-7xl mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-auto py-12">
             <div id="hero-text-content" class="lg:col-span-8 flex flex-col justify-center space-y-6 animate-fade-in">
@@ -1340,6 +1373,10 @@
     }, 3000);
 });
 
+let currentSlideIndex = 0;
+const sliderTrack = document.getElementById('hero-slider-track');
+const slides = document.querySelectorAll('.hero-slide');
+
 let destinations = [
     { title: "Dubai Marina", tag: "Dubai Marina", img: "Dubai Marina.png" },
     { title: "Burj Khalifa", tag: "Downtown Dubai", img: "Burj Khalifa.png" },
@@ -1347,14 +1384,9 @@ let destinations = [
     { title: "Atlantis The Royal", tag: "Palm Jumeirah", img: "atlanta.png" }
 ];
 
-let activeLayer = 1;
 let autoSlideInterval = null;
-
-const layer1 = document.getElementById('bg-layer-1');
-const layer2 = document.getElementById('bg-layer-2');
 const cardTrack = document.getElementById('dest-card-track');
 const dots = document.querySelectorAll('.dot-indicator');
-const navHome = document.getElementById('nav-home');
 
 function renderTrack() {
     if (!cardTrack) return;
